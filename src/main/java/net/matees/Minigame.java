@@ -1,7 +1,10 @@
 package net.matees;
 
 import me.kodysimpson.simpapi.command.SubCommand;
+import me.kodysimpson.simpapi.menu.Menu;
+import net.matees.settings.Setting;
 import org.bukkit.event.Listener;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
 
@@ -31,6 +34,8 @@ public abstract class Minigame {
     public abstract String getCommandUsage();
 
     public abstract List<Setting> getSettings();
+    
+    public abstract Class<? extends Menu> getSettingsMenu();
 
     public Setting getSetting(String name) {
         for(Setting setting : this.getSettings()) {
@@ -41,4 +46,8 @@ public abstract class Minigame {
 
         return null;
     }
+
+    public abstract ItemStack getMinigameMenuItem();
+
+    public abstract void startMinigame();
 }
