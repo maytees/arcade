@@ -1,0 +1,4 @@
+name: arcade
+version: '${project.version}'
+main: net.matees.arcade
+api-version: '1.20'
