@@ -14,6 +14,8 @@ import me.kodysimpson.simpapi.menu.Menu;
 import net.matees.Minigame;
 import net.matees.MinigameType;
 import net.matees.arcade.mobrush.listeners.BlockBreak;
+import net.matees.arcade.mobrush.settings.EnableHostileMobs;
+import net.matees.arcade.mobrush.settings.EnablePeacefulMobs;
 import net.matees.arcade.mobrush.settings.MaxMobCount;
 import net.matees.arcade.mobrush.settings.RandomMobCount;
 import net.matees.settings.Setting;
@@ -69,7 +71,9 @@ public class MobRush extends Minigame {
     public List<Setting> getSettings() {
         return List.of(
                 MaxMobCount.getInstance(),
-                RandomMobCount.getInstance());
+                RandomMobCount.getInstance(),
+                EnableHostileMobs.getInstance(),
+                EnablePeacefulMobs.getInstance());
     }
 
     @Override
