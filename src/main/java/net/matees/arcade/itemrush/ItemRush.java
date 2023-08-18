@@ -1,17 +1,21 @@
-package net.matees.itemrush;
+package net.matees.arcade.itemrush;
 
+import me.kodysimpson.simpapi.colors.ColorTranslator;
 import me.kodysimpson.simpapi.command.SubCommand;
 import me.kodysimpson.simpapi.menu.Menu;
+import net.matees.Arcade;
 import net.matees.Minigame;
 import net.matees.MinigameType;
+import net.matees.arcade.itemrush.listeners.BlockBreak;
+import net.matees.arcade.itemrush.settings.MaxItemCount;
+import net.matees.arcade.itemrush.settings.RandomItemCount;
 import net.matees.settings.Setting;
-import net.matees.itemrush.listeners.BlockBreak;
-import net.matees.itemrush.settings.MaxItemCount;
-import net.matees.itemrush.settings.RandomItemCount;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.Listener;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -82,8 +86,10 @@ public class ItemRush extends Minigame {
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName("§aItem Rush");
         meta.setLore(List.of(
-                "§7Break blocks to get items!",
-                "§7Get lucky!"));
+                ColorTranslator.translateColorCodes("§7Break blocks to get items!"),
+                ColorTranslator.translateColorCodes("§7Get lucky!"),
+                ColorTranslator.translateColorCodes("&3Right Click to open settings")));
+
         item.setItemMeta(meta);
         return item;
     }

@@ -1,4 +1,4 @@
-package net.matees.itemrush.settings;
+package net.matees.arcade.itemrush.settings;
 
 import net.matees.settings.IntegerSetting;
 import org.bukkit.Material;

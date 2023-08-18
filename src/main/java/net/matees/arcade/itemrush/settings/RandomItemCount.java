@@ -1,8 +1,6 @@
-package net.matees.itemrush.settings;
+package net.matees.arcade.itemrush.settings;
 
 import net.matees.settings.BooleanSetting;
-
-import java.util.Random;
 
 import org.bukkit.Material;
 

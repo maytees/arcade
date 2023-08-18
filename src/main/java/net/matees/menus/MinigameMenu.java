@@ -36,29 +36,32 @@ public class MinigameMenu extends Menu {
     }
 
     @Override
-    public void handleMenu(InventoryClickEvent inventoryClickEvent) throws MenuManagerNotSetupException, MenuManagerException {
+    public void handleMenu(InventoryClickEvent inventoryClickEvent)
+            throws MenuManagerNotSetupException, MenuManagerException {
         Arcade plugin = Arcade.getPlugin();
         List<Minigame> minigames = plugin.getMinigames();
         Minigame minigame = plugin.getCurrentGame();
 
         // Get minigame
-        for(Minigame game : minigames) {
-            if(!game.getMinigameMenuItem().isSimilar(inventoryClickEvent.getCurrentItem())) continue;
+        for (Minigame game : minigames) {
+            if (!game.getMinigameMenuItem().isSimilar(inventoryClickEvent.getCurrentItem()))
+                continue;
 
             minigame = game;
         }
 
         // Open settings menu for game
-        if(inventoryClickEvent.isRightClick()){
+        if (inventoryClickEvent.isRightClick()) {
             MenuManager.openMenu(minigame.getSettingsMenu(), (Player) inventoryClickEvent.getWhoClicked());
         }
-        
+
         // Start game
-        if(!inventoryClickEvent.isLeftClick()) return;
+        if (!inventoryClickEvent.isLeftClick())
+            return;
         plugin.setCurrentGame(minigame);
         minigame.startMinigame();
 
-        for(Listener listener : minigame.getListeners()) {
+        for (Listener listener : minigame.getListeners()) {
             plugin.getServer().getPluginManager().registerEvents(listener, plugin);
         }
 

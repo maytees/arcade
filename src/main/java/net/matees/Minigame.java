@@ -34,12 +34,12 @@ public abstract class Minigame {
     public abstract String getCommandUsage();
 
     public abstract List<Setting> getSettings();
-    
+
     public abstract Class<? extends Menu> getSettingsMenu();
 
     public Setting getSetting(String name) {
-        for(Setting setting : this.getSettings()) {
-            if(setting.getName().equals(name)) {
+        for (Setting setting : this.getSettings()) {
+            if (setting.getName().equals(name)) {
                 return setting;
             }
         }
@@ -50,4 +50,5 @@ public abstract class Minigame {
     public abstract ItemStack getMinigameMenuItem();
 
     public abstract void startMinigame();
+
 }

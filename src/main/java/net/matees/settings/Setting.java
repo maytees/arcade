@@ -41,8 +41,7 @@ public abstract class Setting<T> {
         meta.setLore(List.of(
                 ColorTranslator.translateColorCodes("Current: &2" + this.getSetting()),
                 ColorTranslator.translateColorCodes("&o&7" + this.getDescription()),
-                this.getSettingLore()
-        ));
+                this.getSettingLore()));
 
         item.addUnsafeEnchantment(Enchantment.LUCK, 1);
         meta.removeItemFlags(ItemFlag.HIDE_ENCHANTS);
@@ -55,60 +54,59 @@ public abstract class Setting<T> {
         this.menuItem = menuItem;
     }
 
-
     public abstract int getMenuItemSlot();
 
     public String getSettingLore() {
-        if(this.getSetting() instanceof Integer) {
+        if (this.getSetting() instanceof Integer) {
             return ColorTranslator.translateColorCodes("&2Increase (left)\n" +
                     "&4Decrease(right)");
         }
 
-        if(this.getSetting() instanceof String) {
+        if (this.getSetting() instanceof String) {
             return ColorTranslator.translateColorCodes("&3Click to edit");
         }
 
-        if(this.getSetting() instanceof Boolean) {
+        if (this.getSetting() instanceof Boolean) {
             return ColorTranslator.translateColorCodes("&3Click to toggle");
         }
 
-        if(this.getSetting() instanceof List) {
+        if (this.getSetting() instanceof List) {
             return ColorTranslator.translateColorCodes("&3Click to view/edit");
         }
 
         return "";
     }
 
-
     public void handleItemClick(InventoryClickEvent event) {
-        if(this.getSetting() instanceof Integer) {
+        if (this.getSetting() instanceof Integer) {
             int current = (int) this.getSetting();
-            System.out.println(current);
-            if(event.isLeftClick()) {
+            if (event.isLeftClick() && current != 128) {
                 this.setIntValue(current + 1);
-            }else if(event.isRightClick()) {
+            } else if (event.isRightClick() && current != 1) {
                 this.setIntValue(current - 1);
             }
 
             return;
         }
 
-        if(this.getSetting() instanceof Boolean) {
-            if(!event.isLeftClick()) return;
+        if (this.getSetting() instanceof Boolean) {
+            if (!event.isLeftClick())
+                return;
             boolean current = (boolean) this.getSetting();
-            event.getWhoClicked().sendMessage("boolean " + this.getSetting());
             this.setBooleanValue(!current);
 
             return;
         }
 
-        if(this.getSetting() instanceof String) {
-            if(!event.isLeftClick()) return;
+        if (this.getSetting() instanceof String) {
+            if (!event.isLeftClick())
+                return;
             // Open sign, worry about this later
         }
 
-        if(this.getSetting() instanceof List) {
-            if(!event.isLeftClick()) return;
+        if (this.getSetting() instanceof List) {
+            if (!event.isLeftClick())
+                return;
             // Open another menu, with a list of "settings", heads, or whatever.
             // Worry about this later
         }

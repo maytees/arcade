@@ -2,16 +2,21 @@ package net.matees.settings;
 
 import java.util.List;
 
-public abstract class IntegerSetting extends Setting<Integer>{
+public abstract class IntegerSetting extends Setting<Integer> {
     @Override
-    public void setIntValue(int value) { setSetting(value); System.out.println(value); }
+    public void setIntValue(int value) {
+        setSetting(value);
+    }
 
     @Override
-    public void setBooleanValue(boolean value) { }
+    public void setBooleanValue(boolean value) {
+    }
 
     @Override
-    public void setStringValue(String value) { }
+    public void setStringValue(String value) {
+    }
 
     @Override
-    public void setListValue(List value) { }
+    public void setListValue(List value) {
+    }
 }
