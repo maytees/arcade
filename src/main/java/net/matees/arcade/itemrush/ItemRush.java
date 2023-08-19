@@ -13,9 +13,7 @@ import net.matees.settings.Setting;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.Listener;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -76,8 +74,11 @@ public class ItemRush extends Minigame {
     }
 
     @Override
-    public void startMinigame() {
+    public void doStartMinigame() {
         Bukkit.broadcastMessage("§aItem Rush has started!");
+        for (Listener listener : this.getListeners()) {
+            Arcade.getPlugin().getServer().getPluginManager().registerEvents(listener, Arcade.getPlugin());
+        }
     }
 
     @Override
@@ -97,6 +98,11 @@ public class ItemRush extends Minigame {
     @Override
     public Class<? extends Menu> getSettingsMenu() {
         return ItemRushSettingsMenu.class;
+    }
+
+    @Override
+    public void onStopMinigame() {
+
     }
 
 }

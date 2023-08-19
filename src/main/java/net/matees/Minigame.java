@@ -3,6 +3,9 @@ package net.matees;
 import me.kodysimpson.simpapi.command.SubCommand;
 import me.kodysimpson.simpapi.menu.Menu;
 import net.matees.settings.Setting;
+
+import org.bukkit.Bukkit;
+import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 
@@ -49,6 +52,18 @@ public abstract class Minigame {
 
     public abstract ItemStack getMinigameMenuItem();
 
-    public abstract void startMinigame();
+    public abstract void doStartMinigame();
+
+    public void startMinigame() {
+        this.setIsCurrentMinigame(true);
+        this.doStartMinigame();
+    }
+
+    public void stopMinigame() {
+        this.setIsCurrentMinigame(false);
+        this.onStopMinigame();
+    }
+
+    public abstract void onStopMinigame();
 
 }

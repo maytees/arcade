@@ -7,6 +7,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import me.kodysimpson.simpapi.command.CommandManager;
 import me.kodysimpson.simpapi.menu.MenuManager;
 import net.matees.arcade.itemrush.ItemRush;
+import net.matees.arcade.manhunt.Manhunt;
 import net.matees.arcade.mobrush.MobRush;
 import net.matees.commands.OpenArcadeMenu;
 
@@ -38,7 +39,8 @@ public final class Arcade extends JavaPlugin {
     private void setupArcade() {
         minigames = List.of(
                 ItemRush.getInstance(),
-                MobRush.getInstance());
+                MobRush.getInstance(),
+                Manhunt.getInstance());
     }
 
     @Override

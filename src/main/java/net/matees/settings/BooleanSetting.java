@@ -2,6 +2,8 @@ package net.matees.settings;
 
 import java.util.List;
 
+import org.bukkit.entity.Player;
+
 public abstract class BooleanSetting extends Setting<Boolean> {
     @Override
     public void setIntValue(int value) {
@@ -17,7 +19,6 @@ public abstract class BooleanSetting extends Setting<Boolean> {
     }
 
     @Override
-    public void setListValue(List value) {
+    public void setPlayersValue(List<Player> value) {
     }
-
 }

@@ -3,6 +3,7 @@ package net.matees.settings;
 import me.kodysimpson.simpapi.colors.ColorTranslator;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -29,9 +30,9 @@ public abstract class Setting<T> {
 
     public abstract void setBooleanValue(boolean value);
 
-    public abstract void setListValue(List value);
-
     public abstract void setStringValue(String value);
+
+    public abstract void setPlayersValue(List<Player> value);
 
     public ItemStack getMenuItem() {
         ItemStack item = new ItemStack(this.getMenuItemMaterial(), 1);

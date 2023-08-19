@@ -13,6 +13,9 @@ import java.util.Random;
 public class BlockBreak implements Listener {
     @EventHandler
     public void onBreakBlock(BlockBreakEvent event) {
+        if (!ItemRush.getInstance().isCurrentMinigame())
+            return;
+
         ItemRush itemRush = ItemRush.getInstance();
         int maxItemCount = (int) itemRush.getSetting("Max Item Count").getSetting();
         boolean randomItemCount = (boolean) itemRush.getSetting("Random Item Count").getSetting();

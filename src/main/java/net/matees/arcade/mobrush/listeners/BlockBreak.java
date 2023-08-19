@@ -18,6 +18,9 @@ import net.matees.arcade.mobrush.MobRush;
 public class BlockBreak implements Listener {
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
+        if (!MobRush.getInstance().isCurrentMinigame())
+            return;
+
         MobRush mobRush = MobRush.getInstance();
         int maxMobCount = (int) mobRush.getSetting("Max Mob Count").getSetting();
         boolean randomMobCount = (boolean) mobRush.getSetting("Random Mob Count").getSetting();
