@@ -79,12 +79,20 @@ public abstract class Setting<T> {
     }
 
     public void handleItemClick(InventoryClickEvent event) {
+        int max = 128;
+        int jump = 1;
+
+        if (event.getCurrentItem().getType() == Material.IRON_BARS) {
+            max = 30000000;
+            jump = 50;
+        }
+
         if (this.getSetting() instanceof Integer) {
             int current = (int) this.getSetting();
-            if (event.isLeftClick() && current != 128) {
-                this.setIntValue(current + 1);
-            } else if (event.isRightClick() && current != 1) {
-                this.setIntValue(current - 1);
+            if (event.isLeftClick() && current != max) {
+                this.setIntValue(current + jump);
+            } else if (event.isRightClick() && current >= 1) {
+                this.setIntValue(current - jump);
             }
 
             return;

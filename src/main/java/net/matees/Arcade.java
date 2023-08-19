@@ -10,6 +10,7 @@ import net.matees.arcade.itemrush.ItemRush;
 import net.matees.arcade.manhunt.Manhunt;
 import net.matees.arcade.mobrush.MobRush;
 import net.matees.commands.OpenArcadeMenu;
+import net.matees.commands.OpenGlobalSettingsMenu;
 
 public final class Arcade extends JavaPlugin {
     private static Arcade plugin;
@@ -33,7 +34,7 @@ public final class Arcade extends JavaPlugin {
 
     private void initalizeCommands() throws NoSuchFieldException, IllegalAccessException {
         CommandManager.createCoreCommand(this, "arcade", "Arcade plugin - Survival minigames", "/arcade open|settings",
-                null, OpenArcadeMenu.class);
+                null, OpenArcadeMenu.class, OpenGlobalSettingsMenu.class);
     }
 
     private void setupArcade() {

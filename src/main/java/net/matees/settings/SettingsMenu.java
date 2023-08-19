@@ -25,7 +25,7 @@ public abstract class SettingsMenu extends Menu {
                 setting.handleItemClick(inventoryClickEvent);
 
                 // Updates?
-                inventoryClickEvent.getInventory().clear();
+                inventory.clear();
                 setting.setMenuItem(setting.getMenuItem());
                 this.setMenuItems();
             }

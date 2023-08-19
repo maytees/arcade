@@ -4,8 +4,6 @@ import me.kodysimpson.simpapi.command.SubCommand;
 import me.kodysimpson.simpapi.menu.Menu;
 import net.matees.settings.Setting;
 
-import org.bukkit.Bukkit;
-import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 
