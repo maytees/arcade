@@ -3,10 +3,8 @@ package net.matees.settings.global;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 
-import net.matees.Arcade;
 import net.matees.settings.BooleanSetting;
 import net.matees.settings.Global;
-import net.matees.settings.Setting;
 
 public class EnableWorldBorder extends BooleanSetting implements Global {
 

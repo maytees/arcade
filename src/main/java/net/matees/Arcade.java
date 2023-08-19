@@ -2,6 +2,7 @@ package net.matees;
 
 import java.util.List;
 
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import me.kodysimpson.simpapi.command.CommandManager;
@@ -11,6 +12,7 @@ import net.matees.arcade.manhunt.Manhunt;
 import net.matees.arcade.mobrush.MobRush;
 import net.matees.commands.OpenArcadeMenu;
 import net.matees.commands.OpenGlobalSettingsMenu;
+import net.matees.settings.global.GlobalSettings;
 
 public final class Arcade extends JavaPlugin {
     private static Arcade plugin;
@@ -42,6 +44,10 @@ public final class Arcade extends JavaPlugin {
                 ItemRush.getInstance(),
                 MobRush.getInstance(),
                 Manhunt.getInstance());
+
+        for (Listener listener : GlobalSettings.getInstance().getListeners()) {
+            getServer().getPluginManager().registerEvents(listener, this);
+        }
     }
 
     @Override

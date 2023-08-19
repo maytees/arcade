@@ -1,15 +1,18 @@
 package net.matees.settings.global;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.event.Listener;
+
 import net.matees.settings.Setting;
+import net.matees.settings.global.listeners.PlayerJoinListener;
 
 public class GlobalSettings {
     private final static GlobalSettings INSTANCE = new GlobalSettings();
     private List<Setting> settings = List.of(
             EnableWorldBorder.getInstance(),
-            WorldBorderSize.getInstance());
+            WorldBorderSize.getInstance(),
+            FlightEnabled.getInstance());
 
     private GlobalSettings() {
     }
@@ -30,5 +33,10 @@ public class GlobalSettings {
         }
 
         return null;
+    }
+
+    public List<Listener> getListeners() {
+        return List.of(
+                new PlayerJoinListener());
     }
 }
