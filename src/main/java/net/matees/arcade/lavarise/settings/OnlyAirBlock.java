@@ -7,7 +7,7 @@ import net.matees.settings.BooleanSetting;
 public class OnlyAirBlock extends BooleanSetting {
 
     private static final OnlyAirBlock INSTANCE = new OnlyAirBlock();
-    private Boolean setting;
+    private Boolean setting = true;
 
     private OnlyAirBlock() {
     }
