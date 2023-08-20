@@ -4,8 +4,8 @@ import me.kodysimpson.simpapi.colors.ColorTranslator;
 import me.kodysimpson.simpapi.command.SubCommand;
 import me.kodysimpson.simpapi.menu.Menu;
 import net.matees.Arcade;
-import net.matees.Minigame;
-import net.matees.MinigameType;
+import net.matees.arcade.Minigame;
+import net.matees.arcade.MinigameType;
 import net.matees.arcade.itemrush.listeners.BlockBreak;
 import net.matees.arcade.itemrush.settings.MaxItemCount;
 import net.matees.arcade.itemrush.settings.RandomItemCount;
@@ -13,9 +13,7 @@ import net.matees.settings.Setting;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.Listener;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -76,8 +74,11 @@ public class ItemRush extends Minigame {
     }
 
     @Override
-    public void startMinigame() {
+    public void doStartMinigame() {
         Bukkit.broadcastMessage("§aItem Rush has started!");
+        for (Listener listener : this.getListeners()) {
+            Arcade.getPlugin().getServer().getPluginManager().registerEvents(listener, Arcade.getPlugin());
+        }
     }
 
     @Override
@@ -97,6 +98,11 @@ public class ItemRush extends Minigame {
     @Override
     public Class<? extends Menu> getSettingsMenu() {
         return ItemRushSettingsMenu.class;
+    }
+
+    @Override
+    public void onStopMinigame() {
+
     }
 
 }

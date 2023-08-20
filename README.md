@@ -1,20 +1,26 @@
 # Arcade
 
-*Survival mini game plugin that adds captivating mini games to your minecraft server, bringing a fresh twist to Minecraft for you and your friends.*
+_Survival mini game plugin that adds captivating mini games to your minecraft
+server, bringing a fresh twist to Minecraft for you and your friends._
 
 ## Description
 
-**Version:** Alpha - 0.0.1
+**Version:** Alpha - 0.0.2
 
 ### What Does It Do?
 
-This plugin allows you to play survival mini games with your friends which add twists
-to the game in order to make it more challenging. Arcade allows the modification of
-settings for mini games in order to add customization to the mini game experience
+This plugin allows you to play survival mini games with your friends which add
+twists to the game in order to make it more challenging. Arcade allows the
+modification of settings for mini games in order to add customization to the
+mini game experience
 
 ### Why Download This Project?
 
-If you've watched creators like Dream play unique Minecraft modes like Manhunt or the block-switching Bedrock twist, this plugin lets you enjoy those experiences with friends. Unlike other plugins with limited player customization, Arcade offers you the freedom to enjoy the experience exactly as you prefer.
+If you've watched creators like Dream play unique Minecraft modes like Manhunt
+or the block-switching Bedrock twist, this plugin lets you enjoy those
+experiences with friends. Unlike other plugins with limited player
+customization, Arcade offers you the freedom to enjoy the experience exactly as
+you prefer.
 
 ### Minigames
 
@@ -23,9 +29,10 @@ If you've watched creators like Dream play unique Minecraft modes like Manhunt o
 
 ### Critical Information
 
-*THIS PLUGIN IS IN ALPHA AND IS IN NO WAY STABLE*
+_THIS PLUGIN IS IN ALPHA AND IS IN NO WAY STABLE_
 
-Please report bugs on the Github issue tracker: https://github.com/maytees/arcade/issues
+Please report bugs on the Github issue tracker:
+https://github.com/maytees/arcade/issues
 
 ## Usage
 
@@ -33,7 +40,7 @@ Please report bugs on the Github issue tracker: https://github.com/maytees/arcad
 
 ## Support and Documentation
 
-- **Documentation:** *Coming Soon*
+- **Documentation:** _Coming Soon_
 - **Support:** https://github.com/maytees/arcade
 
-*Project maintained and developed by* [Matees](https://github.com/maytees)
+_Project maintained and developed by_ [Matees](https://github.com/maytees)

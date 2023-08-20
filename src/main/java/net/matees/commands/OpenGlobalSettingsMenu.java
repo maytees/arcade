@@ -9,9 +9,9 @@ import me.kodysimpson.simpapi.command.SubCommand;
 import me.kodysimpson.simpapi.exceptions.MenuManagerException;
 import me.kodysimpson.simpapi.exceptions.MenuManagerNotSetupException;
 import me.kodysimpson.simpapi.menu.MenuManager;
-import net.matees.menus.MinigameMenu;
+import net.matees.menus.GlobalSettingsMenu;
 
-public class OpenArcadeMenu extends SubCommand {
+public class OpenGlobalSettingsMenu extends SubCommand {
 
     @Override
     public List<String> getAliases() {
@@ -20,12 +20,12 @@ public class OpenArcadeMenu extends SubCommand {
 
     @Override
     public String getDescription() {
-        return "Open the minigames menu, which allows you to edit settings, and start minigames";
+        return "Open global settings for Arcade minigames";
     }
 
     @Override
     public String getName() {
-        return "open";
+        return "settings";
     }
 
     @Override
@@ -35,13 +35,13 @@ public class OpenArcadeMenu extends SubCommand {
 
     @Override
     public String getSyntax() {
-        return "/arcade open";
+        return "/arcade settings";
     }
 
     @Override
-    public void perform(CommandSender commandSender, String[] arg1) {
+    public void perform(CommandSender arg0, String[] arg1) {
         try {
-            MenuManager.openMenu(MinigameMenu.class, (Player) commandSender);
+            MenuManager.openMenu(GlobalSettingsMenu.class, (Player) arg0);
         } catch (MenuManagerException | MenuManagerNotSetupException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
