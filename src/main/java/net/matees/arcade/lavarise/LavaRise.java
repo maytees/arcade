@@ -117,10 +117,9 @@ public class LavaRise extends Minigame {
 
     private void startLavaRise() {
         new BukkitRunnable() {
-            boolean onlyAir = (boolean) getSettings().get(0).getSetting();
-
             @Override
             public void run() {
+                boolean onlyAir = (boolean) getSettings().get(0).getSetting();
                 if (!INSTANCE.isCurrentMinigame() || yCoord == 322)
                     this.cancel();
                 ;
