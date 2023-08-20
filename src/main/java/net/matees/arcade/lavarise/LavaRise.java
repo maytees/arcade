@@ -23,6 +23,7 @@ import me.kodysimpson.simpapi.menu.Menu;
 import net.matees.Arcade;
 import net.matees.arcade.Minigame;
 import net.matees.arcade.MinigameType;
+import net.matees.arcade.lavarise.settings.OnlyAirBlock;
 import net.matees.settings.Setting;
 
 public class LavaRise extends Minigame {
@@ -83,7 +84,7 @@ public class LavaRise extends Minigame {
 
     @Override
     public List<Setting> getSettings() {
-        return List.of();
+        return List.of(OnlyAirBlock.getInstance());
     }
 
     @Override
@@ -116,10 +117,13 @@ public class LavaRise extends Minigame {
 
     private void startLavaRise() {
         new BukkitRunnable() {
+            boolean onlyAir = (boolean) getSettings().get(0).getSetting();
+
             @Override
             public void run() {
                 if (!INSTANCE.isCurrentMinigame() || yCoord == 322)
-                    return;
+                    this.cancel();
+                ;
 
                 World world = Arcade.getPlugin().getServer().getWorld("world");
                 int size = (int) world.getWorldBorder().getSize();
@@ -131,11 +135,14 @@ public class LavaRise extends Minigame {
                 for (double x = centerX - halfSize; x <= centerX + halfSize; x++) {
                     for (double z = centerZ - halfSize; z <= centerZ + halfSize; z++) {
                         Block block = world.getBlockAt((int) x, yCoord, (int) z);
+                        block.setMetadata("from_arcade", new FixedMetadataValue(Arcade.getPlugin(), true));
 
-                        // Add setting: Only air blocks
-                        if (block.getType() == Material.AIR && block.getType() != Material.WATER) {
+                        if (onlyAir) {
+                            if (block.getType() == Material.AIR) {
+                                block.setType(Material.LAVA);
+                            }
+                        } else {
                             block.setType(Material.LAVA);
-                            block.setMetadata("from_arcade", new FixedMetadataValue(Arcade.getPlugin(), true));
                         }
                     }
                 }
@@ -153,8 +160,9 @@ public class LavaRise extends Minigame {
         new BukkitRunnable() {
             @Override
             public void run() {
-                if (INSTANCE.isCurrentMinigame() || yCoord == -64)
-                    return;
+                if (yCoord == -64)
+                    this.cancel();
+                ;
 
                 World world = Arcade.getPlugin().getServer().getWorld("world");
                 int size = (int) world.getWorldBorder().getSize();
@@ -174,7 +182,6 @@ public class LavaRise extends Minigame {
                                 fromArcade = true;
                         }
 
-                        // Add setting: Only air blocks
                         if (block.getType() == Material.LAVA && fromArcade) {
                             block.setType(Material.AIR);
                         }
