@@ -2,7 +2,6 @@ package net.matees.commands;
 
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -10,7 +9,6 @@ import me.kodysimpson.simpapi.command.SubCommand;
 import me.kodysimpson.simpapi.exceptions.MenuManagerException;
 import me.kodysimpson.simpapi.exceptions.MenuManagerNotSetupException;
 import me.kodysimpson.simpapi.menu.MenuManager;
-import net.matees.Arcade;
 import net.matees.menus.MinigameMenu;
 
 public class OpenArcadeMenu extends SubCommand {

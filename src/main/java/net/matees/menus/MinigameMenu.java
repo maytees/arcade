@@ -7,7 +7,7 @@ import me.kodysimpson.simpapi.menu.Menu;
 import me.kodysimpson.simpapi.menu.MenuManager;
 import me.kodysimpson.simpapi.menu.PlayerMenuUtility;
 import net.matees.Arcade;
-import net.matees.Minigame;
+import net.matees.arcade.Minigame;
 
 import java.util.List;
 

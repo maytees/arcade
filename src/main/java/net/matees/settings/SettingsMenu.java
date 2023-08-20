@@ -6,7 +6,7 @@ import me.kodysimpson.simpapi.exceptions.MenuManagerException;
 import me.kodysimpson.simpapi.exceptions.MenuManagerNotSetupException;
 import me.kodysimpson.simpapi.menu.Menu;
 import me.kodysimpson.simpapi.menu.PlayerMenuUtility;
-import net.matees.Minigame;
+import net.matees.arcade.Minigame;
 import net.matees.arcade.itemrush.ItemRush;
 
 public abstract class SettingsMenu extends Menu {

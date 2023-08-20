@@ -1,6 +1,7 @@
 package net.matees.settings.global;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 
 import net.matees.settings.BooleanSetting;
@@ -20,7 +21,11 @@ public class FlightEnabled extends BooleanSetting implements Global {
 
     @Override
     public void onChange() {
-        Bukkit.getOnlinePlayers().forEach(player -> player.setAllowFlight(this.getSetting()));
+        Bukkit.getOnlinePlayers().forEach(player -> {
+            if (player.getGameMode() == GameMode.CREATIVE)
+                return;
+            player.setAllowFlight(this.getSetting());
+        });
     }
 
     @Override

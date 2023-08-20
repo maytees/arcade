@@ -6,13 +6,15 @@ import org.bukkit.event.Listener;
 
 import net.matees.settings.Setting;
 import net.matees.settings.global.listeners.PlayerJoinListener;
+import net.matees.settings.global.listeners.PortalTravelEvent;
 
 public class GlobalSettings {
     private final static GlobalSettings INSTANCE = new GlobalSettings();
     private List<Setting> settings = List.of(
             EnableWorldBorder.getInstance(),
             WorldBorderSize.getInstance(),
-            FlightEnabled.getInstance());
+            FlightEnabled.getInstance(),
+            EnableNetherPortal.getInstance());
 
     private GlobalSettings() {
     }
@@ -37,6 +39,7 @@ public class GlobalSettings {
 
     public List<Listener> getListeners() {
         return List.of(
-                new PlayerJoinListener());
+                new PlayerJoinListener(),
+                new PortalTravelEvent());
     }
 }

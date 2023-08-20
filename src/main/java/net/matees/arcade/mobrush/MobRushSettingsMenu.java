@@ -1,7 +1,7 @@
 package net.matees.arcade.mobrush;
 
 import me.kodysimpson.simpapi.menu.PlayerMenuUtility;
-import net.matees.Minigame;
+import net.matees.arcade.Minigame;
 import net.matees.settings.SettingsMenu;
 
 public class MobRushSettingsMenu extends SettingsMenu {

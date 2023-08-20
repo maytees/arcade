@@ -1,4 +1,4 @@
-package net.matees;
+package net.matees.arcade;
 
 import me.kodysimpson.simpapi.command.SubCommand;
 import me.kodysimpson.simpapi.menu.Menu;
