@@ -14,7 +14,8 @@ public class GlobalSettings {
             EnableWorldBorder.getInstance(),
             WorldBorderSize.getInstance(),
             FlightEnabled.getInstance(),
-            EnableNetherPortal.getInstance());
+            EnableNetherPortal.getInstance(),
+            PVPEnabled.getInstance());
 
     private GlobalSettings() {
     }
