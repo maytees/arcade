@@ -45,6 +45,12 @@ public class MinigameMenu extends Menu {
         List<Minigame> minigames = plugin.getMinigames();
         Minigame clicked = null;
 
+        if (inventoryClickEvent.getCurrentItem().getType() == Material.GHAST_TEAR) {
+            MenuManager.openMenu(GlobalSettingsMenu.class, (Player) inventoryClickEvent.getWhoClicked());
+            inventory.close();
+            return;
+        }
+
         // Stop current minigame
         if (inventoryClickEvent.getCurrentItem().getType() == Material.REDSTONE_BLOCK) {
             if (plugin.getCurrentGame() == null) {
@@ -114,5 +120,11 @@ public class MinigameMenu extends Menu {
         meta.setDisplayName("§cStop Current Minigame");
         stopCurrent.setItemMeta(meta);
         inventory.setItem(49, stopCurrent);
+
+        ItemStack globalSettings = new ItemStack(Material.GHAST_TEAR, 1);
+        ItemMeta settingsMeta = globalSettings.getItemMeta();
+        settingsMeta.setDisplayName("Global Settings");
+        globalSettings.setItemMeta(settingsMeta);
+        inventory.setItem(48, globalSettings);
     }
 }

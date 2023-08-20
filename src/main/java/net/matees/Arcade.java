@@ -45,7 +45,7 @@ public final class Arcade extends JavaPlugin {
         minigames = List.of(
                 ItemRush.getInstance(),
                 MobRush.getInstance(),
-                Manhunt.getInstance(),
+                // Manhunt.getInstance(), WIP
                 LavaRise.getInstance());
 
         for (Listener listener : GlobalSettings.getInstance().getListeners()) {
