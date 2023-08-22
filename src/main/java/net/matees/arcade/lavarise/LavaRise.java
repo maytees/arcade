@@ -9,7 +9,6 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.metadata.FixedMetadataValue;
@@ -24,6 +23,7 @@ import net.matees.Arcade;
 import net.matees.arcade.Minigame;
 import net.matees.arcade.MinigameType;
 import net.matees.arcade.lavarise.settings.OnlyAirBlock;
+import net.matees.arcade.lavarise.settings.TimeToRise;
 import net.matees.settings.Setting;
 
 public class LavaRise extends Minigame {
@@ -84,7 +84,7 @@ public class LavaRise extends Minigame {
 
     @Override
     public List<Setting> getSettings() {
-        return List.of(OnlyAirBlock.getInstance());
+        return List.of(OnlyAirBlock.getInstance(), TimeToRise.getInstance());
     }
 
     @Override
@@ -150,7 +150,7 @@ public class LavaRise extends Minigame {
                 Bukkit.broadcastMessage("§cRaised lava level to y=" + yCoord);
             }
 
-        }.runTaskTimer(Arcade.getPlugin(), 0L, 1200);
+        }.runTaskTimer(Arcade.getPlugin(), 0L, ((long) getSetting("Time To Rise").getSetting()) * 20);
     }
 
     @Override
