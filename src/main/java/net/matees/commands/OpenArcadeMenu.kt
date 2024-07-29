@@ -1,51 +1,42 @@
-package net.matees.commands;
+package net.matees.commands
 
-import java.util.List;
+import me.kodysimpson.simpapi.command.SubCommand
+import me.kodysimpson.simpapi.exceptions.MenuManagerException
+import me.kodysimpson.simpapi.exceptions.MenuManagerNotSetupException
+import me.kodysimpson.simpapi.menu.MenuManager
+import net.matees.menus.MinigameMenu
+import org.bukkit.command.CommandSender
+import org.bukkit.entity.Player
 
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
-import me.kodysimpson.simpapi.command.SubCommand;
-import me.kodysimpson.simpapi.exceptions.MenuManagerException;
-import me.kodysimpson.simpapi.exceptions.MenuManagerNotSetupException;
-import me.kodysimpson.simpapi.menu.MenuManager;
-import net.matees.menus.MinigameMenu;
-
-public class OpenArcadeMenu extends SubCommand {
-
-    @Override
-    public List<String> getAliases() {
-        return null;
+class OpenArcadeMenu : SubCommand() {
+    override fun getAliases(): List<String>? {
+        return null
     }
 
-    @Override
-    public String getDescription() {
-        return "Open the minigames menu, which allows you to edit settings, and start minigames";
+    override fun getDescription(): String {
+        return "Open the minigames menu, which allows you to edit settings, and start minigames"
     }
 
-    @Override
-    public String getName() {
-        return "open";
+    override fun getName(): String {
+        return "open"
     }
 
-    @Override
-    public List<String> getSubcommandArguments(Player arg0, String[] arg1) {
-        return null;
+    override fun getSubcommandArguments(arg0: Player, arg1: Array<String>): List<String>? {
+        return null
     }
 
-    @Override
-    public String getSyntax() {
-        return "/arcade open";
+    override fun getSyntax(): String {
+        return "/arcade open"
     }
 
-    @Override
-    public void perform(CommandSender commandSender, String[] arg1) {
+    override fun perform(commandSender: CommandSender, arg1: Array<String>) {
         try {
-            MenuManager.openMenu(MinigameMenu.class, (Player) commandSender);
-        } catch (MenuManagerException | MenuManagerNotSetupException e) {
+            MenuManager.openMenu(MinigameMenu::class.java, commandSender as Player)
+        } catch (e: MenuManagerException) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            e.printStackTrace()
+        } catch (e: MenuManagerNotSetupException) {
+            e.printStackTrace()
         }
     }
-
 }

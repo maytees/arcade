@@ -1,50 +1,24 @@
-package net.matees.arcade.mobrush.settings;
+package net.matees.arcade.mobrush.settings
 
-import org.bukkit.Material;
+import net.matees.settings.BooleanSetting
+import org.bukkit.Material
 
-import net.matees.settings.BooleanSetting;
+class EnableHostileMobs private constructor() : BooleanSetting() {
+    override var setting: Boolean? = true
 
-public class EnableHostileMobs extends BooleanSetting {
+    override val name: String
+        get() = "Enable Hostile Mobs"
 
-    private boolean setting = true;
+    override val description: String
+        get() = "Allows spawning of hostile mobs"
 
-    private static final EnableHostileMobs INSTANCE = new EnableHostileMobs();
+    override val menuItemMaterial: Material
+        get() = Material.CREEPER_SPAWN_EGG
 
-    private EnableHostileMobs() {
+    override val menuItemSlot: Int
+        get() = 13
+
+    companion object {
+        val instance: EnableHostileMobs = EnableHostileMobs()
     }
-
-    public static EnableHostileMobs getInstance() {
-        return INSTANCE;
-    }
-
-    @Override
-    public String getName() {
-        return "Enable Hostile Mobs";
-    }
-
-    @Override
-    public String getDescription() {
-        return "Allows spawning of hostile mobs";
-    }
-
-    @Override
-    public Boolean getSetting() {
-        return setting;
-    }
-
-    @Override
-    public void setSetting(Boolean setting) {
-        this.setting = setting;
-    }
-
-    @Override
-    public Material getMenuItemMaterial() {
-        return Material.CREEPER_SPAWN_EGG;
-    }
-
-    @Override
-    public int getMenuItemSlot() {
-        return 13;
-    }
-
 }

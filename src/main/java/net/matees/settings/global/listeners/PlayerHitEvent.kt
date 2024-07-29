@@ -1,22 +1,19 @@
-package net.matees.settings.global.listeners;
+package net.matees.settings.global.listeners
 
-import org.bukkit.entity.EntityType;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import net.matees.settings.global.GlobalSettings
+import org.bukkit.entity.EntityType
+import org.bukkit.event.EventHandler
+import org.bukkit.event.Listener
+import org.bukkit.event.entity.EntityDamageByEntityEvent
 
-import net.matees.settings.global.GlobalSettings;
-
-public class PlayerHitEvent implements Listener {
+class PlayerHitEvent : Listener {
     @EventHandler
-    public void onPlayerHit(EntityDamageByEntityEvent event) {
-        boolean setting = (boolean) GlobalSettings.getInstance().getSetting("PVP Enabled").getSetting();
-        if (!setting)
-            return;
+    fun onPlayerHit(event: EntityDamageByEntityEvent) {
+        val setting = GlobalSettings.Companion.instance.getSetting("PVP Enabled")?.setting as Boolean
+        if (!setting) return
 
-        if (event.getEntityType() != EntityType.PLAYER && event.getDamager().getType() != EntityType.PLAYER)
-            return;
+        if (event.entityType != EntityType.PLAYER && event.damager.type != EntityType.PLAYER) return
 
-        event.setCancelled(true);
+        event.isCancelled = true
     }
 }

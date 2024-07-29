@@ -1,54 +1,28 @@
-package net.matees.settings.global;
+package net.matees.settings.global
 
-import org.bukkit.Material;
+import net.matees.settings.BooleanSetting
+import net.matees.settings.Global
+import org.bukkit.Material
 
-import net.matees.settings.BooleanSetting;
-import net.matees.settings.Global;
+class EnableNetherPortal private constructor() : BooleanSetting(), Global {
+    override var setting: Boolean? = false
 
-public class EnableNetherPortal extends BooleanSetting implements Global {
+    override val name: String
+        get() = "Enable Nether Portal"
 
-    private static final EnableNetherPortal INSTANCE = new EnableNetherPortal();
-    private Boolean setting = false;
+    override val description: String
+        get() = "Enable or disable nether portals"
 
-    private EnableNetherPortal() {
+    override val menuItemMaterial: Material?
+        get() = Material.OBSIDIAN
+
+    override val menuItemSlot: Int
+        get() = 13
+
+    override fun onChange() {
     }
 
-    public static EnableNetherPortal getInstance() {
-        return INSTANCE;
+    companion object {
+        val instance: EnableNetherPortal = EnableNetherPortal()
     }
-
-    @Override
-    public String getName() {
-        return "Enable Nether Portal";
-    }
-
-    @Override
-    public String getDescription() {
-        return "Enable or disable nether portals";
-    }
-
-    @Override
-    public Boolean getSetting() {
-        return this.setting;
-    }
-
-    @Override
-    public void setSetting(Boolean setting) {
-        this.setting = setting;
-    }
-
-    @Override
-    public Material getMenuItemMaterial() {
-        return Material.OBSIDIAN;
-    }
-
-    @Override
-    public int getMenuItemSlot() {
-        return 13;
-    }
-
-    @Override
-    public void onChange() {
-    }
-
 }

@@ -1,24 +1,14 @@
-package net.matees.arcade.manhunt;
+package net.matees.arcade.manhunt
 
-import me.kodysimpson.simpapi.menu.PlayerMenuUtility;
-import net.matees.arcade.Minigame;
-import net.matees.settings.SettingsMenu;
+import me.kodysimpson.simpapi.menu.PlayerMenuUtility
+import net.matees.arcade.Minigame
+import net.matees.settings.SettingsMenu
 
-public class ManhuntSettingsMenu extends SettingsMenu {
+class ManhuntSettingsMenu(playerMenuUtility: PlayerMenuUtility?) : SettingsMenu(playerMenuUtility) {
+    override val minigame: Minigame
+        get() = Manhunt.Companion.instance
 
-    public ManhuntSettingsMenu(PlayerMenuUtility playerMenuUtility) {
-        super(playerMenuUtility);
-        // TODO Auto-generated constructor stub
+    override fun getMenuName(): String {
+        return "Manhunt Settings"
     }
-
-    @Override
-    public Minigame getMinigame() {
-        return Manhunt.getInstance();
-    }
-
-    @Override
-    public String getMenuName() {
-        return "Manhunt Settings";
-    }
-
 }

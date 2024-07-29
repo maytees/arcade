@@ -1,49 +1,32 @@
-package net.matees.arcade.itemrush.settings;
+package net.matees.arcade.itemrush.settings
 
-import net.matees.settings.BooleanSetting;
+import net.matees.settings.BooleanSetting
+import org.bukkit.Material
 
-import org.bukkit.Material;
+class RandomItemCount private constructor() : BooleanSetting() {
+    var randomItemCount: Boolean = true
 
-public class RandomItemCount extends BooleanSetting {
+    override val name: String
+        get() = "Random Item Count"
 
-    public Boolean randomItemCount = true;
+    override val description: String
+        get() = "Toggle random amount of items dropped"
 
-    private static final RandomItemCount INSTANCE = new RandomItemCount();
+    override var setting: Boolean?
+        get() = this.randomItemCount
+        set(setting) {
+            if (setting != null) {
+                this.randomItemCount = setting
+            }
+        }
 
-    private RandomItemCount() {
-    }
+    override val menuItemMaterial: Material
+        get() = Material.REDSTONE_BLOCK
 
-    public static RandomItemCount getInstance() {
-        return INSTANCE;
-    }
+    override val menuItemSlot: Int
+        get() = 11
 
-    @Override
-    public String getName() {
-        return "Random Item Count";
-    }
-
-    @Override
-    public String getDescription() {
-        return "Toggle random amount of items dropped";
-    }
-
-    @Override
-    public Boolean getSetting() {
-        return this.randomItemCount;
-    }
-
-    @Override
-    public void setSetting(Boolean setting) {
-        this.randomItemCount = setting;
-    }
-
-    @Override
-    public Material getMenuItemMaterial() {
-        return Material.REDSTONE_BLOCK;
-    }
-
-    @Override
-    public int getMenuItemSlot() {
-        return 11;
+    companion object {
+        val instance: RandomItemCount = RandomItemCount()
     }
 }

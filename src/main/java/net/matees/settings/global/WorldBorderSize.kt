@@ -1,55 +1,30 @@
-package net.matees.settings.global;
+package net.matees.settings.global
 
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
+import net.matees.settings.Global
+import net.matees.settings.IntegerSetting
+import org.bukkit.Bukkit
+import org.bukkit.Material
 
-import net.matees.settings.Global;
-import net.matees.settings.IntegerSetting;
+class WorldBorderSize private constructor() : IntegerSetting(), Global {
+    override var setting: Int? = 500
 
-public class WorldBorderSize extends IntegerSetting implements Global {
-    private static final WorldBorderSize INSTANCE = new WorldBorderSize();
-    private int setting = 500;
+    override val name: String
+        get() = "World Border Size"
 
-    private WorldBorderSize() {
+    override val description: String
+        get() = "Set world border size"
+
+    override val menuItemMaterial: Material?
+        get() = Material.IRON_BARS
+
+    override val menuItemSlot: Int
+        get() = 11
+
+    override fun onChange() {
+        Bukkit.getWorld("world")!!.worldBorder.size = setting!!.toDouble()
     }
 
-    public static WorldBorderSize getInstance() {
-        return INSTANCE;
+    companion object {
+        val instance: WorldBorderSize = WorldBorderSize()
     }
-
-    @Override
-    public String getName() {
-        return "World Border Size";
-    }
-
-    @Override
-    public String getDescription() {
-        return "Set world border size";
-    }
-
-    @Override
-    public Integer getSetting() {
-        return this.setting;
-    }
-
-    @Override
-    public void setSetting(Integer setting) {
-        this.setting = setting;
-    }
-
-    @Override
-    public Material getMenuItemMaterial() {
-        return Material.IRON_BARS;
-    }
-
-    @Override
-    public int getMenuItemSlot() {
-        return 11;
-    }
-
-    @Override
-    public void onChange() {
-        Bukkit.getWorld("world").getWorldBorder().setSize((double) this.getSetting());
-    }
-
 }

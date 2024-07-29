@@ -1,51 +1,32 @@
-package net.matees.arcade.mobrush.settings;
+package net.matees.arcade.mobrush.settings
 
-import org.bukkit.Material;
+import net.matees.settings.BooleanSetting
+import org.bukkit.Material
 
-import net.matees.settings.BooleanSetting;
+class RandomMobCount private constructor() : BooleanSetting() {
+    private var randomMobCount: Boolean = true
 
-public class RandomMobCount extends BooleanSetting {
+    override val name: String
+        get() = "Random Mob Count"
 
-    public Boolean randomMobCount = true;
+    override val description: String
+        get() = "Toggle random amount of mobs spawned"
 
-    private static final RandomMobCount INSTANCE = new RandomMobCount();
+    override var setting: Boolean?
+        get() = this.randomMobCount
+        set(setting) {
+            if (setting != null) {
+                this.randomMobCount = setting
+            }
+        }
 
-    private RandomMobCount() {
+    override val menuItemMaterial: Material
+        get() = Material.REDSTONE_BLOCK
 
+    override val menuItemSlot: Int
+        get() = 11
+
+    companion object {
+        val instance: RandomMobCount = RandomMobCount()
     }
-
-    public static RandomMobCount getInstance() {
-        return INSTANCE;
-    }
-
-    @Override
-    public String getName() {
-        return "Random Mob Count";
-    }
-
-    @Override
-    public String getDescription() {
-        return "Toggle random amount of mobs spawned";
-    }
-
-    @Override
-    public Boolean getSetting() {
-        return this.randomMobCount;
-    }
-
-    @Override
-    public void setSetting(Boolean setting) {
-        this.randomMobCount = setting;
-    }
-
-    @Override
-    public Material getMenuItemMaterial() {
-        return Material.REDSTONE_BLOCK;
-    }
-
-    @Override
-    public int getMenuItemSlot() {
-        return 11;
-    }
-
 }

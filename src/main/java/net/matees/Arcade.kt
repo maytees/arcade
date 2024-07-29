@@ -1,76 +1,63 @@
-package net.matees;
+package net.matees
 
-import java.util.List;
+import me.kodysimpson.simpapi.command.CommandManager
+import me.kodysimpson.simpapi.menu.MenuManager
+import net.matees.arcade.Minigame
+import net.matees.arcade.itemrush.ItemRush
+import net.matees.arcade.lavarise.LavaRise
+import net.matees.arcade.mobrush.MobRush
+import net.matees.commands.OpenArcadeMenu
+import net.matees.commands.OpenGlobalSettingsMenu
+import net.matees.settings.global.GlobalSettings
+import org.bukkit.plugin.java.JavaPlugin
 
-import org.bukkit.event.Listener;
-import org.bukkit.plugin.java.JavaPlugin;
+class Arcade : JavaPlugin() {
+    var currentGame: Minigame? = null
 
-import me.kodysimpson.simpapi.command.CommandManager;
-import me.kodysimpson.simpapi.menu.MenuManager;
-import net.matees.arcade.Minigame;
-import net.matees.arcade.itemrush.ItemRush;
-import net.matees.arcade.lavarise.LavaRise;
-import net.matees.arcade.manhunt.Manhunt;
-import net.matees.arcade.mobrush.MobRush;
-import net.matees.commands.OpenArcadeMenu;
-import net.matees.commands.OpenGlobalSettingsMenu;
-import net.matees.settings.global.GlobalSettings;
+    var minigames: List<Minigame>? = null
+        private set
 
-public final class Arcade extends JavaPlugin {
-    private static Arcade plugin;
-    private Minigame currentGame;
-
-    private List<Minigame> minigames;
-
-    @Override
-    public void onEnable() {
+    override fun onEnable() {
         // Plugin startup logic
-        plugin = this;
-        MenuManager.setup(getServer(), this);
+        plugin = this
+        MenuManager.setup(server, this)
 
         try {
-            initalizeCommands();
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            e.printStackTrace();
+            initializeCommands()
+        } catch (e: NoSuchFieldException) {
+            e.printStackTrace()
+        } catch (e: IllegalAccessException) {
+            e.printStackTrace()
         }
-        setupArcade();
+        setupArcade()
     }
 
-    private void initalizeCommands() throws NoSuchFieldException, IllegalAccessException {
-        CommandManager.createCoreCommand(this, "arcade", "Arcade plugin - Survival minigames", "/arcade open|settings",
-                null, OpenArcadeMenu.class, OpenGlobalSettingsMenu.class);
+    @Throws(NoSuchFieldException::class, IllegalAccessException::class)
+    private fun initializeCommands() {
+        CommandManager.createCoreCommand(
+            this, "arcade", "Arcade plugin - Survival minigames", "/arcade open|settings",
+            null, OpenArcadeMenu::class.java, OpenGlobalSettingsMenu::class.java
+        )
     }
 
-    private void setupArcade() {
-        minigames = List.of(
-                ItemRush.getInstance(),
-                MobRush.getInstance(),
-                // Manhunt.getInstance(), WIP
-                LavaRise.getInstance());
+    private fun setupArcade() {
+        minigames = listOf<Minigame>(
+            ItemRush.instance,
+            MobRush.instance,  // Manhunt.getInstance(), WIP
+            LavaRise.instance
+        )
 
-        for (Listener listener : GlobalSettings.getInstance().getListeners()) {
-            getServer().getPluginManager().registerEvents(listener, this);
+        for (listener in GlobalSettings.Companion.instance.listeners) {
+            server.pluginManager.registerEvents(listener, this)
         }
     }
 
-    @Override
-    public void onDisable() {
+    override fun onDisable() {
         // Plugin shutdown logic
     }
 
-    public static Arcade getPlugin() {
-        return plugin;
-    }
-
-    public Minigame getCurrentGame() {
-        return this.currentGame;
-    }
-
-    public void setCurrentGame(Minigame currentGame) {
-        this.currentGame = currentGame;
-    }
-
-    public List<Minigame> getMinigames() {
-        return minigames;
+    companion object {
+        var plugin: Arcade? = null
+            private set
     }
 }

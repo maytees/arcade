@@ -1,54 +1,28 @@
-package net.matees.settings.global;
+package net.matees.settings.global
 
-import org.bukkit.Material;
+import net.matees.settings.BooleanSetting
+import net.matees.settings.Global
+import org.bukkit.Material
 
-import net.matees.settings.BooleanSetting;
-import net.matees.settings.Global;
+class PVPEnabled private constructor() : BooleanSetting(), Global {
+    override var setting: Boolean? = true
 
-public class PVPEnabled extends BooleanSetting implements Global {
-
-    private static final PVPEnabled INSTANCE = new PVPEnabled();
-    private Boolean setting = true;
-
-    private PVPEnabled() {
+    override fun onChange() {
     }
 
-    public static PVPEnabled getInstance() {
-        return INSTANCE;
-    }
+    override val name: String
+        get() = "PVP Enabled"
 
-    @Override
-    public void onChange() {
-    }
+    override val description: String
+        get() = "Enable or disable PVP"
 
-    @Override
-    public String getName() {
-        return "PVP Enabled";
-    }
+    override val menuItemMaterial: Material
+        get() = Material.IRON_SWORD
 
-    @Override
-    public String getDescription() {
-        return "Enable or disable PVP";
-    }
+    override val menuItemSlot: Int
+        get() = 14
 
-    @Override
-    public Boolean getSetting() {
-        return this.setting;
+    companion object {
+        val instance: PVPEnabled = PVPEnabled()
     }
-
-    @Override
-    public void setSetting(Boolean setting) {
-        this.setting = setting;
-    }
-
-    @Override
-    public Material getMenuItemMaterial() {
-        return Material.IRON_SWORD;
-    }
-
-    @Override
-    public int getMenuItemSlot() {
-        return 14;
-    }
-
 }

@@ -1,61 +1,32 @@
-package net.matees.settings.global;
+package net.matees.settings.global
 
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
+import net.matees.settings.*
+import org.bukkit.Bukkit
+import org.bukkit.Material
 
-import net.matees.settings.BooleanSetting;
-import net.matees.settings.Global;
+class EnableWorldBorder private constructor() : BooleanSetting(), Global {
+    override var setting: Boolean? = false
 
-public class EnableWorldBorder extends BooleanSetting implements Global {
+    override val name: String
+        get() = "Enable World Border"
 
-    private static final EnableWorldBorder INSTANCE = new EnableWorldBorder();
-    private Boolean setting = false;
+    override val description: String
+        get() = "Determines whether there is a world border"
 
-    private EnableWorldBorder() {
+    override val menuItemMaterial: Material?
+        get() = Material.CYAN_GLAZED_TERRACOTTA
+
+    override val menuItemSlot: Int
+        get() = 10
+
+    override fun onChange() {
+        val size = GlobalSettings.Companion.instance.getSetting("World Border Size")?.setting as Int
+
+        Bukkit.getWorld("world")!!.worldBorder.size = if (this.setting == true
+        ) size.toDouble() else 30000000.0
     }
 
-    public static EnableWorldBorder getInstance() {
-        return INSTANCE;
+    companion object {
+        val instance: EnableWorldBorder = EnableWorldBorder()
     }
-
-    @Override
-    public String getName() {
-        return "Enable World Border";
-    }
-
-    @Override
-    public String getDescription() {
-        return "Determintes whether there is a world border";
-    }
-
-    @Override
-    public Boolean getSetting() {
-        return this.setting;
-    }
-
-    @Override
-    public void setSetting(Boolean setting) {
-        this.setting = setting;
-    }
-
-    @Override
-    public Material getMenuItemMaterial() {
-        return Material.CYAN_GLAZED_TERRACOTTA;
-    }
-
-    @Override
-    public int getMenuItemSlot() {
-        return 10;
-    }
-
-    @Override
-    public void onChange() {
-        int size = (int) GlobalSettings.getInstance().getSetting("World Border Size").getSetting();
-
-        Bukkit.getWorld("world").getWorldBorder()
-                .setSize(this.getSetting()
-                        ? (double) size
-                        : (double) 30000000);
-    }
-
 }

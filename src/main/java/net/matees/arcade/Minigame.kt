@@ -1,67 +1,55 @@
-package net.matees.arcade;
+package net.matees.arcade
 
-import me.kodysimpson.simpapi.command.SubCommand;
-import me.kodysimpson.simpapi.menu.Menu;
-import net.matees.settings.Setting;
+import me.kodysimpson.simpapi.command.SubCommand
+import me.kodysimpson.simpapi.menu.Menu
+import net.matees.settings.Setting
+import org.bukkit.event.Listener
+import org.bukkit.inventory.ItemStack
 
-import org.bukkit.event.Listener;
-import org.bukkit.inventory.ItemStack;
+abstract class Minigame {
+    var isCurrentMinigame: Boolean = false
 
-import java.util.List;
+    abstract val name: String
 
-public abstract class Minigame {
-    private boolean isCurrentMinigame;
+    abstract val minigameType: MinigameType?
 
-    public boolean isCurrentMinigame() {
-        return this.isCurrentMinigame;
-    }
+    abstract val listeners: List<Listener>
 
-    public void setIsCurrentMinigame(boolean current) {
-        this.isCurrentMinigame = current;
-    }
+    abstract val subCommands: List<Class<out SubCommand?>?>?
 
-    public abstract String getName();
+    abstract val commandName: String?
 
-    public abstract MinigameType getMinigameType();
+    abstract val commandDescription: String?
 
-    public abstract List<Listener> getListeners();
+    abstract val commandUsage: String?
 
-    public abstract List<Class<? extends SubCommand>> getSubCommands();
+    abstract val settings: List<Setting<*>>
 
-    public abstract String getCommandName();
+    abstract val settingsMenu: Class<out Menu?>?
 
-    public abstract String getCommandDescription();
-
-    public abstract String getCommandUsage();
-
-    public abstract List<Setting> getSettings();
-
-    public abstract Class<? extends Menu> getSettingsMenu();
-
-    public Setting getSetting(String name) {
-        for (Setting setting : this.getSettings()) {
-            if (setting.getName().equals(name)) {
-                return setting;
+    fun getSetting(name: String): Setting<*>? {
+        for (setting in this.settings) {
+            if (setting.name == name) {
+                return setting
             }
         }
 
-        return null;
+        return null
     }
 
-    public abstract ItemStack getMinigameMenuItem();
+    abstract val minigameMenuItem: ItemStack
 
-    public abstract void doStartMinigame();
+    abstract fun doStartMinigame()
 
-    public void startMinigame() {
-        this.setIsCurrentMinigame(true);
-        this.doStartMinigame();
+    fun startMinigame() {
+        this.isCurrentMinigame = true
+        this.doStartMinigame()
     }
 
-    public void stopMinigame() {
-        this.setIsCurrentMinigame(false);
-        this.onStopMinigame();
+    fun stopMinigame() {
+        this.isCurrentMinigame = false
+        this.onStopMinigame()
     }
 
-    public abstract void onStopMinigame();
-
+    abstract fun onStopMinigame()
 }

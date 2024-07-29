@@ -1,51 +1,40 @@
-package net.matees.settings;
+package net.matees.settings
 
-import org.bukkit.event.inventory.InventoryClickEvent;
+import me.kodysimpson.simpapi.exceptions.MenuManagerException
+import me.kodysimpson.simpapi.exceptions.MenuManagerNotSetupException
+import me.kodysimpson.simpapi.menu.Menu
+import me.kodysimpson.simpapi.menu.PlayerMenuUtility
+import net.matees.arcade.Minigame
+import org.bukkit.event.inventory.InventoryClickEvent
 
-import me.kodysimpson.simpapi.exceptions.MenuManagerException;
-import me.kodysimpson.simpapi.exceptions.MenuManagerNotSetupException;
-import me.kodysimpson.simpapi.menu.Menu;
-import me.kodysimpson.simpapi.menu.PlayerMenuUtility;
-import net.matees.arcade.Minigame;
-import net.matees.arcade.itemrush.ItemRush;
+abstract class SettingsMenu(playerMenuUtility: PlayerMenuUtility?) : Menu(playerMenuUtility) {
+    abstract val minigame: Minigame
 
-public abstract class SettingsMenu extends Menu {
-
-    public SettingsMenu(PlayerMenuUtility playerMenuUtility) {
-        super(playerMenuUtility);
-    }
-
-    public abstract Minigame getMinigame();
-
-    @Override
-    public void handleMenu(InventoryClickEvent inventoryClickEvent)
-            throws MenuManagerNotSetupException, MenuManagerException {
-        for (Setting setting : this.getMinigame().getSettings()) {
-            if (setting.getMenuItem().isSimilar(inventoryClickEvent.getCurrentItem())) {
-                setting.handleItemClick(inventoryClickEvent);
+    @Throws(MenuManagerNotSetupException::class, MenuManagerException::class)
+    override fun handleMenu(inventoryClickEvent: InventoryClickEvent) {
+        for (setting in minigame.settings) {
+            if (setting.menuItem.isSimilar(inventoryClickEvent.currentItem)) {
+                setting.handleItemClick(inventoryClickEvent)
 
                 // Updates?
-                inventory.clear();
-                setting.setMenuItem(setting.getMenuItem());
-                this.setMenuItems();
+                inventory.clear()
+                setting.menuItem = setting.menuItem
+                this.setMenuItems()
             }
         }
     }
 
-    @Override
-    public int getSlots() {
-        return 27;
+    override fun getSlots(): Int {
+        return 27
     }
 
-    @Override
-    public boolean cancelAllClicks() {
-        return true;
+    override fun cancelAllClicks(): Boolean {
+        return true
     }
 
-    @Override
-    public void setMenuItems() {
-        for (Setting setting : this.getMinigame().getSettings()) {
-            inventory.setItem(setting.getMenuItemSlot(), setting.getMenuItem());
+    override fun setMenuItems() {
+        for (setting in minigame.settings) {
+            inventory.setItem(setting.menuItemSlot, setting.menuItem)
         }
     }
 }

@@ -1,46 +1,36 @@
-package net.matees.settings.global;
+package net.matees.settings.global
 
-import java.util.List;
+import net.matees.settings.*
+import net.matees.settings.global.listeners.PlayerJoinListener
+import net.matees.settings.global.listeners.PortalTravelEvent
+import org.bukkit.event.Listener
 
-import org.bukkit.event.Listener;
+class GlobalSettings private constructor() {
+    val settings: List<Setting<*>> = listOf<Setting<*>>(
+        EnableWorldBorder.instance,
+        WorldBorderSize.instance,
+        FlightEnabled.instance,
+        EnableNetherPortal.instance,
+        PVPEnabled.instance
+    )
 
-import net.matees.settings.Setting;
-import net.matees.settings.global.listeners.PlayerJoinListener;
-import net.matees.settings.global.listeners.PortalTravelEvent;
-
-public class GlobalSettings {
-    private final static GlobalSettings INSTANCE = new GlobalSettings();
-    private List<Setting> settings = List.of(
-            EnableWorldBorder.getInstance(),
-            WorldBorderSize.getInstance(),
-            FlightEnabled.getInstance(),
-            EnableNetherPortal.getInstance(),
-            PVPEnabled.getInstance());
-
-    private GlobalSettings() {
-    }
-
-    public static GlobalSettings getInstance() {
-        return INSTANCE;
-    }
-
-    public List<Setting> getSettings() {
-        return this.settings;
-    }
-
-    public Setting getSetting(String name) {
-        for (Setting setting : this.getSettings()) {
-            if (setting.getName().equals(name)) {
-                return setting;
+    fun getSetting(name: String): Setting<*>? {
+        for (setting in this.settings) {
+            if (setting.name == name) {
+                return setting
             }
         }
 
-        return null;
+        return null
     }
 
-    public List<Listener> getListeners() {
-        return List.of(
-                new PlayerJoinListener(),
-                new PortalTravelEvent());
+    val listeners: List<Listener>
+        get() = listOf(
+            PlayerJoinListener(),
+            PortalTravelEvent()
+        )
+
+    companion object {
+        val instance: GlobalSettings = GlobalSettings()
     }
 }

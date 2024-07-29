@@ -1,22 +1,14 @@
-package net.matees.arcade.mobrush;
+package net.matees.arcade.mobrush
 
-import me.kodysimpson.simpapi.menu.PlayerMenuUtility;
-import net.matees.arcade.Minigame;
-import net.matees.settings.SettingsMenu;
+import me.kodysimpson.simpapi.menu.PlayerMenuUtility
+import net.matees.arcade.Minigame
+import net.matees.settings.SettingsMenu
 
-public class MobRushSettingsMenu extends SettingsMenu {
-
-    public MobRushSettingsMenu(PlayerMenuUtility playerMenuUtility) {
-        super(playerMenuUtility);
+class MobRushSettingsMenu(playerMenuUtility: PlayerMenuUtility?) : SettingsMenu(playerMenuUtility) {
+    override fun getMenuName(): String {
+        return "Mob Rush Settings"
     }
 
-    @Override
-    public String getMenuName() {
-        return "Mob Rush Settings";
-    }
-
-    @Override
-    public Minigame getMinigame() {
-        return MobRush.getInstance();
-    }
+    override val minigame: Minigame
+        get() = MobRush.Companion.instance
 }

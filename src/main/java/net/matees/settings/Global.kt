@@ -1,5 +1,5 @@
-package net.matees.settings;
+package net.matees.settings
 
-public interface Global {
-    public void onChange();
+interface Global {
+    fun onChange()
 }

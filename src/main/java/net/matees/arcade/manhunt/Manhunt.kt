@@ -1,103 +1,76 @@
-package net.matees.arcade.manhunt;
+package net.matees.arcade.manhunt
 
-import java.util.List;
+import me.kodysimpson.simpapi.colors.ColorTranslator
+import me.kodysimpson.simpapi.command.SubCommand
+import me.kodysimpson.simpapi.menu.Menu
+import net.matees.Arcade
+import net.matees.arcade.Minigame
+import net.matees.arcade.MinigameType
+import net.matees.settings.*
+import org.bukkit.Bukkit
+import org.bukkit.Material
+import org.bukkit.event.Listener
+import org.bukkit.inventory.ItemStack
 
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.event.Listener;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
+class Manhunt private constructor() : Minigame() {
+    override val name: String
+        get() = "Manhunt"
 
-import me.kodysimpson.simpapi.colors.ColorTranslator;
-import me.kodysimpson.simpapi.command.SubCommand;
-import me.kodysimpson.simpapi.menu.Menu;
-import net.matees.Arcade;
-import net.matees.arcade.Minigame;
-import net.matees.arcade.MinigameType;
-import net.matees.settings.Setting;
+    override val minigameType: MinigameType
+        get() = MinigameType.Manhunt
 
-public class Manhunt extends Minigame {
+    override val listeners: List<Listener>
+        get() = listOf()
 
-    private static final Manhunt INSTANCE = new Manhunt();
+    override val subCommands: List<Class<out SubCommand?>?>?
+        get() = null
 
-    private Manhunt() {
-    }
+    override val commandName: String?
+        get() = null
 
-    public static Manhunt getInstance() {
-        return INSTANCE;
-    }
+    override val commandDescription: String?
+        get() = null
 
-    @Override
-    public String getName() {
-        return "Manhunt";
-    }
+    override val commandUsage: String?
+        get() = null
 
-    @Override
-    public MinigameType getMinigameType() {
-        return MinigameType.Manhunt;
-    }
+    override val settings: List<Setting<*>>
+        get() = listOf()
 
-    @Override
-    public List<Listener> getListeners() {
-        return List.of();
-    }
+    override val settingsMenu: Class<out Menu?>
+        get() = ManhuntSettingsMenu::class.java
 
-    @Override
-    public List<Class<? extends SubCommand>> getSubCommands() {
-        return null;
-    }
-
-    @Override
-    public String getCommandName() {
-        return null;
-    }
-
-    @Override
-    public String getCommandDescription() {
-        return null;
-    }
-
-    @Override
-    public String getCommandUsage() {
-        return null;
-    }
-
-    @Override
-    public List<Setting> getSettings() {
-        return List.of();
-    }
-
-    @Override
-    public Class<? extends Menu> getSettingsMenu() {
-        return ManhuntSettingsMenu.class;
-    }
-
-    @Override
-    public ItemStack getMinigameMenuItem() {
-        ItemStack item = new ItemStack(Material.NETHERITE_SWORD, 1);
-        ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName(ColorTranslator.translateColorCodes("&aManhunt"));
-        meta.setLore(List.of(
+    override val minigameMenuItem: ItemStack
+        get() {
+            val item = ItemStack(Material.NETHERITE_SWORD, 1)
+            val meta = item.itemMeta
+            meta.setDisplayName(ColorTranslator.translateColorCodes("&aManhunt"))
+            meta.lore = java.util.List.of(
                 ColorTranslator.translateColorCodes("&7Hunt down the runner(s)!"),
                 ColorTranslator.translateColorCodes(
-                        "&7The runner(s) must kill the ender dragon while hunters attempt to kill the runner(s)"),
-                ColorTranslator.translateColorCodes("&3 Right Click to open settings")));
+                    "&7The runner(s) must kill the ender dragon while hunters attempt to kill the runner(s)"
+                ),
+                ColorTranslator.translateColorCodes("&3 Right Click to open settings")
+            )
 
-        item.setItemMeta(meta);
-        return item;
-    }
+            item.setItemMeta(meta)
+            return item
+        }
 
-    @Override
-    public void doStartMinigame() {
-        Bukkit.broadcastMessage("&aManhunt has started!");
-        for (Listener listener : this.getListeners()) {
-            Arcade.getPlugin().getServer().getPluginManager().registerEvents(listener, Arcade.getPlugin());
+    override fun doStartMinigame() {
+        Bukkit.broadcastMessage("&aManhunt has started!")
+        for (listener in this.listeners) {
+            Arcade.Companion.plugin?.let {
+                Arcade.Companion.plugin?.server?.pluginManager
+                    ?.registerEvents(listener, it)
+            }
         }
     }
 
-    @Override
-    public void onStopMinigame() {
-
+    override fun onStopMinigame() {
     }
 
+    companion object {
+        val instance: Manhunt = Manhunt()
+    }
 }

@@ -1,111 +1,86 @@
-package net.matees.arcade.mobrush;
+package net.matees.arcade.mobrush
 
-import java.util.List;
+import me.kodysimpson.simpapi.colors.ColorTranslator
+import me.kodysimpson.simpapi.command.SubCommand
+import me.kodysimpson.simpapi.menu.Menu
+import net.matees.Arcade
+import net.matees.arcade.Minigame
+import net.matees.arcade.MinigameType
+import net.matees.arcade.mobrush.listeners.BlockBreak
+import net.matees.arcade.mobrush.settings.EnableHostileMobs
+import net.matees.arcade.mobrush.settings.EnablePeacefulMobs
+import net.matees.arcade.mobrush.settings.MaxMobCount
+import net.matees.arcade.mobrush.settings.RandomMobCount
+import net.matees.settings.*
+import org.bukkit.Bukkit
+import org.bukkit.Material
+import org.bukkit.event.Listener
+import org.bukkit.inventory.ItemStack
 
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.event.Listener;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
+class MobRush private constructor() : Minigame() {
+    override val name: String
+        get() = "Mob Rush"
 
-import me.kodysimpson.simpapi.colors.ColorTranslator;
-import me.kodysimpson.simpapi.command.SubCommand;
-import me.kodysimpson.simpapi.menu.Menu;
-import net.matees.Arcade;
-import net.matees.arcade.Minigame;
-import net.matees.arcade.MinigameType;
-import net.matees.arcade.mobrush.listeners.BlockBreak;
-import net.matees.arcade.mobrush.settings.EnableHostileMobs;
-import net.matees.arcade.mobrush.settings.EnablePeacefulMobs;
-import net.matees.arcade.mobrush.settings.MaxMobCount;
-import net.matees.arcade.mobrush.settings.RandomMobCount;
-import net.matees.settings.Setting;
+    override val minigameType: MinigameType?
+        get() = MinigameType.MobRush
 
-public class MobRush extends Minigame {
+    override val listeners: List<Listener>
+        get() = listOf<Listener>(
+            BlockBreak()
+        )
 
-    private static final MobRush INSTANCE = new MobRush();
+    override val subCommands: List<Class<out SubCommand?>?>?
+        get() = null
 
-    private MobRush() {
-    }
+    override val commandName: String?
+        get() = null
 
-    public static MobRush getInstance() {
-        return INSTANCE;
-    }
+    override val commandDescription: String?
+        get() = null
 
-    @Override
-    public String getName() {
-        return "Mob Rush";
-    }
+    override val commandUsage: String?
+        get() = null
 
-    @Override
-    public MinigameType getMinigameType() {
-        return MinigameType.MobRush;
-    }
+    override val settings: List<Setting<*>>
+        get() = listOf<Setting<*>>(
+            MaxMobCount.instance,
+            RandomMobCount.instance,
+            EnableHostileMobs.instance,
+            EnablePeacefulMobs.instance
+        )
 
-    @Override
-    public List<Listener> getListeners() {
-        return List.of(
-                new BlockBreak());
-    }
+    override val settingsMenu: Class<out Menu?>?
+        get() = MobRushSettingsMenu::class.java
 
-    @Override
-    public List<Class<? extends SubCommand>> getSubCommands() {
-        return null;
-    }
-
-    @Override
-    public String getCommandName() {
-        return null;
-    }
-
-    @Override
-    public String getCommandDescription() {
-        return null;
-    }
-
-    @Override
-    public String getCommandUsage() {
-        return null;
-    }
-
-    @Override
-    public List<Setting> getSettings() {
-        return List.of(
-                MaxMobCount.getInstance(),
-                RandomMobCount.getInstance(),
-                EnableHostileMobs.getInstance(),
-                EnablePeacefulMobs.getInstance());
-    }
-
-    @Override
-    public Class<? extends Menu> getSettingsMenu() {
-        return MobRushSettingsMenu.class;
-    }
-
-    @Override
-    public ItemStack getMinigameMenuItem() {
-        ItemStack item = new ItemStack(Material.CREEPER_HEAD, 1);
-        ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName(ColorTranslator.translateColorCodes("&aMob Rush"));
-        meta.setLore(List.of(
+    override val minigameMenuItem: ItemStack
+        get() {
+            val item = ItemStack(Material.CREEPER_HEAD, 1)
+            val meta = item.itemMeta
+            meta.setDisplayName(ColorTranslator.translateColorCodes("&aMob Rush"))
+            meta.lore = listOf(
                 ColorTranslator.translateColorCodes("§7Break blocks to spawn random mobs!"),
                 ColorTranslator.translateColorCodes("§7Get lucky!"),
-                ColorTranslator.translateColorCodes("&3Right Click to open settings")));
+                ColorTranslator.translateColorCodes("&3Right Click to open settings")
+            )
 
-        item.setItemMeta(meta);
-        return item;
-    }
+            item.setItemMeta(meta)
+            return item
+        }
 
-    @Override
-    public void doStartMinigame() {
-        Bukkit.broadcastMessage("§aMob Rush has started!");
-        for (Listener listener : this.getListeners()) {
-            Arcade.getPlugin().getServer().getPluginManager().registerEvents(listener, Arcade.getPlugin());
+    override fun doStartMinigame() {
+        Bukkit.broadcastMessage("§aMob Rush has started!")
+        for (listener in this.listeners) {
+            Arcade.Companion.plugin?.let {
+                Arcade.Companion.plugin?.server?.pluginManager
+                    ?.registerEvents(listener, it)
+            }
         }
     }
 
-    @Override
-    public void onStopMinigame() {
+    override fun onStopMinigame() {
     }
 
+    companion object {
+        val instance: MobRush = MobRush()
+    }
 }

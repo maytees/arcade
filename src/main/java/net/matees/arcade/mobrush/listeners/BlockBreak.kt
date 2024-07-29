@@ -1,66 +1,63 @@
-package net.matees.arcade.mobrush.listeners;
+package net.matees.arcade.mobrush.listeners
 
-import java.util.Arrays;
-import java.util.Random;
+import net.matees.arcade.mobrush.MobRush
+import org.bukkit.entity.Creature
+import org.bukkit.entity.Enemy
+import org.bukkit.entity.Entity
+import org.bukkit.entity.EntityType
+import org.bukkit.entity.Monster
+import org.bukkit.event.EventHandler
+import org.bukkit.event.Listener
+import org.bukkit.event.block.BlockBreakEvent
+import java.util.*
 
-import org.bukkit.entity.Creature;
-import org.bukkit.entity.Enemy;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Mob;
-import org.bukkit.entity.Monster;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockBreakEvent;
-
-import net.matees.arcade.mobrush.MobRush;
-
-public class BlockBreak implements Listener {
+class BlockBreak : Listener {
     @EventHandler
-    public void onBlockBreak(BlockBreakEvent event) {
-        if (!MobRush.getInstance().isCurrentMinigame())
-            return;
+    fun onBlockBreak(event: BlockBreakEvent) {
+        if (!MobRush.Companion.instance.isCurrentMinigame) return
 
-        MobRush mobRush = MobRush.getInstance();
-        int maxMobCount = (int) mobRush.getSetting("Max Mob Count").getSetting();
-        boolean randomMobCount = (boolean) mobRush.getSetting("Random Mob Count").getSetting();
-        boolean enableHostileMobs = (boolean) mobRush.getSetting("Enable Hostile Mobs").getSetting();
-        boolean enablePeacefulMobs = (boolean) mobRush.getSetting("Enable Peaceful Mobs").getSetting();
+        val mobRush: MobRush = MobRush.Companion.instance
+        val maxMobCount = mobRush.getSetting("Max Mob Count")?.setting as Int
+        val randomMobCount = mobRush.getSetting("Random Mob Count")!!.setting as Boolean
+        val enableHostileMobs = mobRush.getSetting("Enable Hostile Mobs")!!.setting as Boolean
+        val enablePeacefulMobs = mobRush.getSetting("Enable Peaceful Mobs")!!.setting as Boolean
 
-        EntityType[] mobs = Arrays.stream(EntityType.values()).filter(entityType -> {
-            if (entityType.getEntityClass() == null) {
-                return false;
+        val mobs = Arrays.stream<EntityType>(EntityType.entries.toTypedArray()).filter { entityType: EntityType ->
+            if (entityType.entityClass == null) {
+                return@filter false
+            }
+            if (!(!entityType.entityClass?.let { Monster::class.java.isAssignableFrom(it) }!! && !entityType.entityClass?.let {
+                    Enemy::class.java.isAssignableFrom(
+                        it
+                    )
+                }!!)
+            ) {
+                return@filter enableHostileMobs
             }
 
-            if (Monster.class.isAssignableFrom(entityType.getEntityClass())
-                    || Enemy.class.isAssignableFrom(entityType.getEntityClass())) {
-                return enableHostileMobs;
+            if (entityType.entityClass?.let { Creature::class.java.isAssignableFrom(it) }!!) {
+                return@filter enablePeacefulMobs
             }
-
-            if (Creature.class.isAssignableFrom(entityType.getEntityClass())) {
-                return enablePeacefulMobs;
-            }
-
-            return false;
-        }).toArray(EntityType[]::new);
+            false
+        }.toArray()
 
         if (!enableHostileMobs && !enablePeacefulMobs) {
-            return;
+            return
         }
 
-        EntityType mobType = mobs[new Random().nextInt(mobs.length)];
+        val mobType = mobs[Random().nextInt(mobs.size)]
 
         if (randomMobCount) {
-            int count = new Random().nextInt(maxMobCount + 1);
-            for (int i = 0; i < count; i++) {
-                event.getBlock().getWorld().spawnEntity(event.getBlock().getLocation(), mobType);
+            val count = Random().nextInt(maxMobCount + 1)
+            for (i in 0 until count) {
+                event.block.world.spawnEntity(event.block.location, mobType as EntityType)
             }
 
-            return;
+            return
         }
 
-        for (int i = 0; i < maxMobCount; i++) {
-            event.getBlock().getWorld().spawnEntity(event.getBlock().getLocation(), mobType);
+        for (i in 0 until maxMobCount) {
+            event.block.world.spawnEntity(event.block.location, mobType as EntityType)
         }
     }
 }

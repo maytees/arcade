@@ -1,24 +1,14 @@
-package net.matees.arcade.lavarise;
+package net.matees.arcade.lavarise
 
-import me.kodysimpson.simpapi.menu.PlayerMenuUtility;
-import net.matees.arcade.Minigame;
-import net.matees.settings.SettingsMenu;
+import me.kodysimpson.simpapi.menu.PlayerMenuUtility
+import net.matees.arcade.Minigame
+import net.matees.settings.SettingsMenu
 
-public class LavaRiseSettingsMenu extends SettingsMenu {
+class LavaRiseSettingsMenu(playerMenuUtility: PlayerMenuUtility?) : SettingsMenu(playerMenuUtility) {
+    override val minigame: Minigame
+        get() = LavaRise.Companion.instance
 
-    public LavaRiseSettingsMenu(PlayerMenuUtility playerMenuUtility) {
-        super(playerMenuUtility);
-        // TODO Auto-generated constructor stub
+    override fun getMenuName(): String {
+        return "Lava Rise Settings"
     }
-
-    @Override
-    public Minigame getMinigame() {
-        return LavaRise.getInstance();
-    }
-
-    @Override
-    public String getMenuName() {
-        return "Lava Rise Settings";
-    }
-
 }

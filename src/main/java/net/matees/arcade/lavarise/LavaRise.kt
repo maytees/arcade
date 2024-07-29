@@ -1,196 +1,173 @@
-package net.matees.arcade.lavarise;
+package net.matees.arcade.lavarise
 
-import java.util.ArrayList;
-import java.util.List;
+import me.kodysimpson.simpapi.colors.ColorTranslator
+import me.kodysimpson.simpapi.command.SubCommand
+import me.kodysimpson.simpapi.menu.Menu
+import net.matees.Arcade
+import net.matees.arcade.Minigame
+import net.matees.arcade.MinigameType
+import net.matees.arcade.lavarise.settings.OnlyAirBlock
+import net.matees.settings.*
+import org.bukkit.Bukkit
+import org.bukkit.Material
+import org.bukkit.World
+import org.bukkit.entity.Player
+import org.bukkit.event.Listener
+import org.bukkit.inventory.ItemStack
+import org.bukkit.metadata.FixedMetadataValue
+import org.bukkit.scheduler.BukkitRunnable
 
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.World;
-import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
-import org.bukkit.inventory.ItemFlag;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.metadata.FixedMetadataValue;
-import org.bukkit.metadata.MetadataValue;
-import org.bukkit.scheduler.BukkitRunnable;
-import org.jetbrains.annotations.NotNull;
+class LavaRise private constructor() : Minigame() {
+    val playersAlive: MutableList<Player> = ArrayList()
 
-import me.kodysimpson.simpapi.colors.ColorTranslator;
-import me.kodysimpson.simpapi.command.SubCommand;
-import me.kodysimpson.simpapi.menu.Menu;
-import net.matees.Arcade;
-import net.matees.arcade.Minigame;
-import net.matees.arcade.MinigameType;
-import net.matees.arcade.lavarise.settings.OnlyAirBlock;
-import net.matees.settings.Setting;
-
-public class LavaRise extends Minigame {
-
-    private static final LavaRise INSTANCE = new LavaRise();
-    private List<Player> playersAlive = new ArrayList<>();
-    private static int yCoord = -64;
-
-    private LavaRise() {
+    fun removePlayer(player: Player) {
+        playersAlive.remove(player)
     }
 
-    public List<Player> getPlayersAlive() {
-        return this.playersAlive;
-    }
+    override val name: String
+        get() = "Lava Rise"
 
-    public void removePlayer(Player player) {
-        this.getPlayersAlive().remove(player);
-    }
+    override val minigameType: MinigameType?
+        get() = MinigameType.LavaRise
 
-    public static LavaRise getInstance() {
-        return INSTANCE;
-    }
+    override val listeners: List<Listener>
+        get() = listOf()
 
-    @Override
-    public String getName() {
-        return "Lava Rise";
-    }
+    override val subCommands: List<Class<out SubCommand?>?>?
+        get() = null
 
-    @Override
-    public MinigameType getMinigameType() {
-        return MinigameType.LavaRise;
-    }
+    override val commandName: String?
+        get() = null
 
-    @Override
-    public List<Listener> getListeners() {
-        return List.of();
-    }
+    override val commandDescription: String?
+        get() = null
 
-    @Override
-    public List<Class<? extends SubCommand>> getSubCommands() {
-        return null;
-    }
+    override val commandUsage: String?
+        get() = null
 
-    @Override
-    public String getCommandName() {
-        return null;
-    }
+    override val settings: List<Setting<*>>
+        get() = java.util.List.of<Setting<*>>(OnlyAirBlock.Companion.instance)
 
-    @Override
-    public String getCommandDescription() {
-        return null;
-    }
+    override val settingsMenu: Class<out Menu?>
+        get() = LavaRiseSettingsMenu::class.java
 
-    @Override
-    public String getCommandUsage() {
-        return null;
-    }
-
-    @Override
-    public List<Setting> getSettings() {
-        return List.of(OnlyAirBlock.getInstance());
-    }
-
-    @Override
-    public Class<? extends Menu> getSettingsMenu() {
-        return LavaRiseSettingsMenu.class;
-    }
-
-    @Override
-    public ItemStack getMinigameMenuItem() {
-        ItemStack item = new ItemStack(Material.LAVA_BUCKET, 1);
-        ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName("§aLava Rise");
-        meta.setLore(List.of(
+    override val minigameMenuItem: ItemStack
+        get() {
+            val item = ItemStack(Material.LAVA_BUCKET, 1)
+            val meta = item.itemMeta
+            meta.setDisplayName("§aLava Rise")
+            meta.lore = java.util.List.of(
                 ColorTranslator.translateColorCodes("§7Lava rises every minute"),
                 ColorTranslator.translateColorCodes("§7Build up and don't die!"),
-                ColorTranslator.translateColorCodes("&3Last to die wins.")));
-        item.setItemMeta(meta);
-        return item;
-    }
-
-    @Override
-    public void doStartMinigame() {
-        Bukkit.broadcastMessage("§aLava Rise has started!");
-        for (Listener listener : this.getListeners()) {
-            Arcade.getPlugin().getServer().getPluginManager().registerEvents(listener, Arcade.getPlugin());
+                ColorTranslator.translateColorCodes("&3Last to die wins.")
+            )
+            item.setItemMeta(meta)
+            return item
         }
 
-        this.startLavaRise();
+    override fun doStartMinigame() {
+        Bukkit.broadcastMessage("§aLava Rise has started!")
+        for (listener in this.listeners) {
+            Arcade.Companion.plugin?.let {
+                Arcade.Companion.plugin?.server?.pluginManager
+                    ?.registerEvents(listener, it)
+            }
+        }
+
+        this.startLavaRise()
     }
 
-    private void startLavaRise() {
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                boolean onlyAir = (boolean) getSettings().get(0).getSetting();
-                if (!INSTANCE.isCurrentMinigame() || yCoord == 322)
-                    this.cancel();
-                ;
+    private fun startLavaRise() {
+        Arcade.Companion.plugin?.let { it ->
+            object : BukkitRunnable() {
+                override fun run() {
+                    val onlyAir = settings[0].setting as Boolean
+                    if (!instance.isCurrentMinigame || yCoord == 322) this.cancel()
 
-                World world = Arcade.getPlugin().getServer().getWorld("world");
-                int size = (int) world.getWorldBorder().getSize();
-                double centerX = world.getWorldBorder().getCenter().getX();
-                double centerZ = world.getWorldBorder().getCenter().getZ();
+                    val world: World? = Arcade.Companion.plugin?.server?.getWorld("world")
+                    val size = world?.worldBorder?.size?.toInt()
+                    val centerX = world?.worldBorder?.center?.x
+                    val centerZ = world?.worldBorder?.center?.z
 
-                double halfSize = size / 2;
+                    val halfSize = (size?.div(2))?.toDouble()
 
-                for (double x = centerX - halfSize; x <= centerX + halfSize; x++) {
-                    for (double z = centerZ - halfSize; z <= centerZ + halfSize; z++) {
-                        Block block = world.getBlockAt((int) x, yCoord, (int) z);
-                        block.setMetadata("from_arcade", new FixedMetadataValue(Arcade.getPlugin(), true));
+                    var x = halfSize?.let { centerX?.minus(it) }
+                    if (centerX != null) {
+                        if (x != null) {
+                            while (x <= centerX + halfSize!!) {
+                                var z = centerZ?.minus(halfSize)
+                                if (centerZ != null) {
+                                    if (z != null) {
+                                        while (z <= centerZ + halfSize) {
+                                            val block = world.getBlockAt(x.toInt(), yCoord, z.toInt())
+                                            Arcade.Companion.plugin?.let { FixedMetadataValue(it, true) }?.let {
+                                                block.setMetadata("from_arcade",
+                                                    it
+                                                )
+                                            }
 
-                        if (onlyAir) {
-                            if (block.getType() == Material.AIR) {
-                                block.setType(Material.LAVA);
+                                            if (onlyAir) {
+                                                if (block.type == Material.AIR) {
+                                                    block.type = Material.LAVA
+                                                }
+                                            } else {
+                                                block.type = Material.LAVA
+                                            }
+                                            z++
+                                        }
+                                    }
+                                }
+                                x++
                             }
-                        } else {
-                            block.setType(Material.LAVA);
                         }
                     }
+
+                    yCoord++
+                    Bukkit.broadcastMessage("§cRaised lava level to y=" + yCoord)
                 }
-
-                yCoord++;
-                Bukkit.broadcastMessage("§cRaised lava level to y=" + yCoord);
-            }
-
-        }.runTaskTimer(Arcade.getPlugin(), 0L, 1200);
+            }.runTaskTimer(it, 0L, 20)
+        }
     }
 
-    @Override
-    public void onStopMinigame() {
+    override fun onStopMinigame() {
+        object : BukkitRunnable() {
+            override fun run() {
+                if (yCoord == -64) this.cancel()
 
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                if (yCoord == -64)
-                    this.cancel();
-                ;
+                val world: World? = Arcade.Companion.plugin?.server?.getWorld("world")
+                val size = world?.worldBorder?.size?.toInt()
+                val centerX = world?.worldBorder?.center?.x
+                val centerZ = world?.worldBorder?.center?.z
 
-                World world = Arcade.getPlugin().getServer().getWorld("world");
-                int size = (int) world.getWorldBorder().getSize();
-                double centerX = world.getWorldBorder().getCenter().getX();
-                double centerZ = world.getWorldBorder().getCenter().getZ();
+                val halfSize = (size!! / 2).toDouble()
 
-                double halfSize = size / 2;
-
-                for (double x = centerX - halfSize; x <= centerX + halfSize; x++) {
-                    for (double z = centerZ - halfSize; z <= centerZ + halfSize; z++) {
-                        Block block = world.getBlockAt((int) x, yCoord, (int) z);
-                        @NotNull
-                        List<MetadataValue> values = block.getMetadata("from_arcade");
-                        boolean fromArcade = false;
-                        for (MetadataValue value : values) {
-                            if (value.asBoolean() == true)
-                                fromArcade = true;
+                var x = centerX!! - halfSize
+                while (x <= centerX + halfSize) {
+                    var z = centerZ!! - halfSize
+                    while (z <= centerZ + halfSize) {
+                        val block = world.getBlockAt(x.toInt(), yCoord, z.toInt())
+                        val values = block.getMetadata("from_arcade")
+                        var fromArcade = false
+                        for (value in values) {
+                            if (value.asBoolean()) fromArcade = true
                         }
 
-                        if (block.getType() == Material.LAVA && fromArcade) {
-                            block.setType(Material.AIR);
+                        if (block.type == Material.LAVA && fromArcade) {
+                            block.type = Material.AIR
                         }
+                        z++
                     }
+                    x++
                 }
 
-                yCoord--;
-                Bukkit.broadcastMessage("§cCurrent y = " + yCoord);
+                yCoord--
+                Bukkit.broadcastMessage("§cCurrent y = " + yCoord)
             }
+        }.runTaskTimer(Arcade.Companion.plugin!!, 0L, 10)
+    }
 
-        }.runTaskTimer(Arcade.getPlugin(), 0L, 10);
+    companion object {
+        val instance: LavaRise = LavaRise()
+        private var yCoord = -64
     }
 }

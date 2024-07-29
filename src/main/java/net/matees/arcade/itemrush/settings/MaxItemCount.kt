@@ -1,46 +1,32 @@
-package net.matees.arcade.itemrush.settings;
+package net.matees.arcade.itemrush.settings
 
-import net.matees.settings.IntegerSetting;
-import org.bukkit.Material;
+import net.matees.settings.IntegerSetting
+import org.bukkit.Material
 
-public class MaxItemCount extends IntegerSetting {
+class MaxItemCount private constructor() : IntegerSetting() {
+    private var maxItemCount = 16
 
-    private Integer maxItemCount = 16;
-    private static final MaxItemCount INSTANCE = new MaxItemCount();
+    override val name: String
+        get() = "Max Item Count"
 
-    private MaxItemCount() {
-    }
+    override val description: String
+        get() = "Max amount of items dropped (if random is enabled, this is the range)"
 
-    public static MaxItemCount getInstance() {
-        return INSTANCE;
-    }
+    override var setting: Int?
+        get() = maxItemCount
+        set(setting) {
+            if (setting != null) {
+                this.maxItemCount = setting
+            }
+        }
 
-    @Override
-    public String getName() {
-        return "Max Item Count";
-    }
+    override val menuItemMaterial: Material
+        get() = Material.STICK
 
-    @Override
-    public String getDescription() {
-        return "Max amount of items dropped (if random is enabled, this is the range)";
-    }
+    override val menuItemSlot: Int
+        get() = 12
 
-    @Override
-    public Integer getSetting() {
-        return maxItemCount;
-    }
-
-    public void setSetting(Integer setting) {
-        this.maxItemCount = setting;
-    }
-
-    @Override
-    public Material getMenuItemMaterial() {
-        return Material.STICK;
-    }
-
-    @Override
-    public int getMenuItemSlot() {
-        return 12;
+    companion object {
+        val instance: MaxItemCount = MaxItemCount()
     }
 }

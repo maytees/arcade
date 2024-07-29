@@ -1,18 +1,16 @@
-package net.matees.settings.global.listeners;
+package net.matees.settings.global.listeners
 
-import org.bukkit.GameMode;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
+import net.matees.settings.global.GlobalSettings
+import org.bukkit.GameMode
+import org.bukkit.event.EventHandler
+import org.bukkit.event.Listener
+import org.bukkit.event.player.PlayerJoinEvent
 
-import net.matees.settings.global.GlobalSettings;
-
-public class PlayerJoinListener implements Listener {
+class PlayerJoinListener : Listener {
     @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event) {
-        event.getPlayer()
-                .setAllowFlight((boolean) GlobalSettings.getInstance().getSetting("Enable Flight").getSetting());
-        if (event.getPlayer().getGameMode() == GameMode.CREATIVE)
-            event.getPlayer().setAllowFlight(true);
+    fun onPlayerJoin(event: PlayerJoinEvent) {
+        event.player.allowFlight =
+            GlobalSettings.Companion.instance.getSetting("Enable Flight")?.setting as Boolean
+        if (event.player.gameMode == GameMode.CREATIVE) event.player.allowFlight = true
     }
 }

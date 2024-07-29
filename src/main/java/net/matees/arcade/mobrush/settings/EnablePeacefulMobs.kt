@@ -1,49 +1,24 @@
-package net.matees.arcade.mobrush.settings;
+package net.matees.arcade.mobrush.settings
 
-import org.bukkit.Material;
+import net.matees.settings.BooleanSetting
+import org.bukkit.Material
 
-import net.matees.settings.BooleanSetting;
+class EnablePeacefulMobs private constructor() : BooleanSetting() {
+    override var setting: Boolean? = true
 
-public class EnablePeacefulMobs extends BooleanSetting {
+    override val name: String
+        get() = "Enable Peaceful Mobs"
 
-    private Boolean setting = true;
-    private static final EnablePeacefulMobs INSTANCE = new EnablePeacefulMobs();
+    override val description: String
+        get() = "Allows spawning of peaceful mobs"
 
-    private EnablePeacefulMobs() {
+    override val menuItemMaterial: Material
+        get() = Material.SHEEP_SPAWN_EGG
+
+    override val menuItemSlot: Int
+        get() = 14
+
+    companion object {
+        val instance: EnablePeacefulMobs = EnablePeacefulMobs()
     }
-
-    public static EnablePeacefulMobs getInstance() {
-        return INSTANCE;
-    }
-
-    @Override
-    public String getName() {
-        return "Enable Peaceful Mobs";
-    }
-
-    @Override
-    public String getDescription() {
-        return "Allows spawning of peaceful mobs";
-    }
-
-    @Override
-    public Boolean getSetting() {
-        return setting;
-    }
-
-    @Override
-    public void setSetting(Boolean setting) {
-        this.setting = setting;
-    }
-
-    @Override
-    public Material getMenuItemMaterial() {
-        return Material.SHEEP_SPAWN_EGG;
-    }
-
-    @Override
-    public int getMenuItemSlot() {
-        return 14;
-    }
-
 }

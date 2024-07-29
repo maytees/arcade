@@ -1,51 +1,42 @@
-package net.matees.commands;
+package net.matees.commands
 
-import java.util.List;
+import me.kodysimpson.simpapi.command.SubCommand
+import me.kodysimpson.simpapi.exceptions.MenuManagerException
+import me.kodysimpson.simpapi.exceptions.MenuManagerNotSetupException
+import me.kodysimpson.simpapi.menu.MenuManager
+import net.matees.menus.GlobalSettingsMenu
+import org.bukkit.command.CommandSender
+import org.bukkit.entity.Player
 
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
-import me.kodysimpson.simpapi.command.SubCommand;
-import me.kodysimpson.simpapi.exceptions.MenuManagerException;
-import me.kodysimpson.simpapi.exceptions.MenuManagerNotSetupException;
-import me.kodysimpson.simpapi.menu.MenuManager;
-import net.matees.menus.GlobalSettingsMenu;
-
-public class OpenGlobalSettingsMenu extends SubCommand {
-
-    @Override
-    public List<String> getAliases() {
-        return null;
+class OpenGlobalSettingsMenu : SubCommand() {
+    override fun getAliases(): List<String>? {
+        return null
     }
 
-    @Override
-    public String getDescription() {
-        return "Open global settings for Arcade minigames";
+    override fun getDescription(): String {
+        return "Open global settings for Arcade minigames"
     }
 
-    @Override
-    public String getName() {
-        return "settings";
+    override fun getName(): String {
+        return "settings"
     }
 
-    @Override
-    public List<String> getSubcommandArguments(Player arg0, String[] arg1) {
-        return null;
+    override fun getSubcommandArguments(arg0: Player, arg1: Array<String>): List<String>? {
+        return null
     }
 
-    @Override
-    public String getSyntax() {
-        return "/arcade settings";
+    override fun getSyntax(): String {
+        return "/arcade settings"
     }
 
-    @Override
-    public void perform(CommandSender arg0, String[] arg1) {
+    override fun perform(arg0: CommandSender, arg1: Array<String>) {
         try {
-            MenuManager.openMenu(GlobalSettingsMenu.class, (Player) arg0);
-        } catch (MenuManagerException | MenuManagerNotSetupException e) {
+            MenuManager.openMenu(GlobalSettingsMenu::class.java, arg0 as Player)
+        } catch (e: MenuManagerException) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            e.printStackTrace()
+        } catch (e: MenuManagerNotSetupException) {
+            e.printStackTrace()
         }
     }
-
 }

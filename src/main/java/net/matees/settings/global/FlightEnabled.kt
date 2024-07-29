@@ -1,61 +1,35 @@
-package net.matees.settings.global;
+package net.matees.settings.global
 
-import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
-import org.bukkit.Material;
+import net.matees.settings.BooleanSetting
+import net.matees.settings.Global
+import org.bukkit.Bukkit
+import org.bukkit.GameMode
+import org.bukkit.Material
+import org.bukkit.entity.Player
 
-import net.matees.settings.BooleanSetting;
-import net.matees.settings.Global;
+class FlightEnabled private constructor() : BooleanSetting(), Global {
+    override var setting: Boolean? = false
 
-public class FlightEnabled extends BooleanSetting implements Global {
-
-    private static final FlightEnabled INSTANCE = new FlightEnabled();
-    private Boolean setting = false;
-
-    private FlightEnabled() {
+    override fun onChange() {
+        Bukkit.getOnlinePlayers().forEach { player: Player ->
+            if (player.gameMode == GameMode.CREATIVE) return@forEach
+            player.allowFlight = setting == true
+        }
     }
 
-    public static FlightEnabled getInstance() {
-        return INSTANCE;
-    }
+    override val name: String
+        get() = "Enable Flight"
 
-    @Override
-    public void onChange() {
-        Bukkit.getOnlinePlayers().forEach(player -> {
-            if (player.getGameMode() == GameMode.CREATIVE)
-                return;
-            player.setAllowFlight(this.getSetting());
-        });
-    }
+    override val description: String
+        get() = "Enables flight for all players"
 
-    @Override
-    public String getName() {
-        return "Enable Flight";
-    }
+    override val menuItemMaterial: Material
+        get() = Material.PHANTOM_MEMBRANE
 
-    @Override
-    public String getDescription() {
-        return "Enables flight for all players";
-    }
+    override val menuItemSlot: Int
+        get() = 12
 
-    @Override
-    public Boolean getSetting() {
-        return this.setting;
+    companion object {
+        val instance: FlightEnabled = FlightEnabled()
     }
-
-    @Override
-    public void setSetting(Boolean setting) {
-        this.setting = setting;
-    }
-
-    @Override
-    public Material getMenuItemMaterial() {
-        return Material.PHANTOM_MEMBRANE;
-    }
-
-    @Override
-    public int getMenuItemSlot() {
-        return 12;
-    }
-
 }

@@ -1,49 +1,24 @@
-package net.matees.arcade.lavarise.settings;
+package net.matees.arcade.lavarise.settings
 
-import org.bukkit.Material;
+import net.matees.settings.BooleanSetting
+import org.bukkit.Material
 
-import net.matees.settings.BooleanSetting;
+class OnlyAirBlock private constructor() : BooleanSetting() {
+    override var setting: Boolean? = true
 
-public class OnlyAirBlock extends BooleanSetting {
+    override val name: String
+        get() = "Only Air Block"
 
-    private static final OnlyAirBlock INSTANCE = new OnlyAirBlock();
-    private Boolean setting = true;
+    override val description: String
+        get() = "Determines whether only air blocks should be replaced with lava"
 
-    private OnlyAirBlock() {
+    override val menuItemMaterial: Material
+        get() = Material.BARRIER
+
+    override val menuItemSlot: Int
+        get() = 10
+
+    companion object {
+        val instance: OnlyAirBlock = OnlyAirBlock()
     }
-
-    public static OnlyAirBlock getInstance() {
-        return INSTANCE;
-    }
-
-    @Override
-    public String getName() {
-        return "Only Air Block";
-    }
-
-    @Override
-    public String getDescription() {
-        return "Determines whether only air blocks should be replaced with lava";
-    }
-
-    @Override
-    public Boolean getSetting() {
-        return this.setting;
-    }
-
-    @Override
-    public void setSetting(Boolean setting) {
-        this.setting = setting;
-    }
-
-    @Override
-    public Material getMenuItemMaterial() {
-        return Material.BARRIER;
-    }
-
-    @Override
-    public int getMenuItemSlot() {
-        return 10;
-    }
-
 }

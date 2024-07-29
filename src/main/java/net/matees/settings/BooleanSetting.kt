@@ -1,24 +1,18 @@
-package net.matees.settings;
+package net.matees.settings
 
-import java.util.List;
+import org.bukkit.entity.Player
 
-import org.bukkit.entity.Player;
-
-public abstract class BooleanSetting extends Setting<Boolean> {
-    @Override
-    public void setIntValue(int value) {
+abstract class BooleanSetting : Setting<Boolean?>() {
+    override fun setIntValue(value: Int) {
     }
 
-    @Override
-    public void setBooleanValue(boolean value) {
-        setSetting(value);
+    override fun setBooleanValue(value: Boolean) {
+        setting = value
     }
 
-    @Override
-    public void setStringValue(String value) {
+    override fun setStringValue(value: String?) {
     }
 
-    @Override
-    public void setPlayersValue(List<Player> value) {
+    override fun setPlayersValue(value: List<Player?>?) {
     }
 }

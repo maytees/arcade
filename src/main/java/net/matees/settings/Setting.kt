@@ -1,121 +1,115 @@
-package net.matees.settings;
+package net.matees.settings
 
-import me.kodysimpson.simpapi.colors.ColorTranslator;
-import org.bukkit.Material;
-import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.ItemFlag;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
+import me.kodysimpson.simpapi.colors.ColorTranslator
+import org.bukkit.Material
+import org.bukkit.enchantments.Enchantment
+import org.bukkit.entity.Player
+import org.bukkit.event.inventory.InventoryClickEvent
+import org.bukkit.inventory.ItemFlag
+import org.bukkit.inventory.ItemStack
 
-import java.util.List;
+abstract class Setting<T> {
+    var menuItem: ItemStack
+        get() {
+            val item = ItemStack(menuItemMaterial!!, 1)
+            val meta = item.itemMeta
 
-public abstract class Setting<T> {
+            meta.setDisplayName(ColorTranslator.translateColorCodes("&l&6") + this.name)
+            meta.lore = listOf(
+                ColorTranslator.translateColorCodes("Current: &2" + this.setting),
+                ColorTranslator.translateColorCodes("&o&7" + this.description),
+                this.settingLore
+            )
 
-    private ItemStack menuItem;
+            item.addUnsafeEnchantment(Enchantment.LUCK_OF_THE_SEA, 1)
+            meta.removeItemFlags(ItemFlag.HIDE_ENCHANTS)
 
-    public abstract String getName();
+            item.setItemMeta(meta)
+            return item
+        }
+        set(value) {}
 
-    public abstract String getDescription();
+    abstract val name: String
+
+    abstract val description: String
 
     // Default
-    public abstract T getSetting();
+    abstract var setting: T?
 
-    public abstract void setSetting(T setting);
+    abstract val menuItemMaterial: Material?
 
-    public abstract Material getMenuItemMaterial();
+    abstract fun setIntValue(value: Int)
 
-    public abstract void setIntValue(int value);
+    abstract fun setBooleanValue(value: Boolean)
 
-    public abstract void setBooleanValue(boolean value);
+    abstract fun setStringValue(value: String?)
 
-    public abstract void setStringValue(String value);
+    abstract fun setPlayersValue(value: List<Player?>?)
 
-    public abstract void setPlayersValue(List<Player> value);
+    abstract val menuItemSlot: Int
 
-    public ItemStack getMenuItem() {
-        ItemStack item = new ItemStack(this.getMenuItemMaterial(), 1);
-        ItemMeta meta = item.getItemMeta();
-
-        meta.setDisplayName(ColorTranslator.translateColorCodes("&l&6") + this.getName());
-        meta.setLore(List.of(
-                ColorTranslator.translateColorCodes("Current: &2" + this.getSetting()),
-                ColorTranslator.translateColorCodes("&o&7" + this.getDescription()),
-                this.getSettingLore()));
-
-        item.addUnsafeEnchantment(Enchantment.LUCK, 1);
-        meta.removeItemFlags(ItemFlag.HIDE_ENCHANTS);
-
-        item.setItemMeta(meta);
-        return item;
-    }
-
-    public void setMenuItem(ItemStack menuItem) {
-        this.menuItem = menuItem;
-    }
-
-    public abstract int getMenuItemSlot();
-
-    public String getSettingLore() {
-        if (this.getSetting() instanceof Integer) {
-            return ColorTranslator.translateColorCodes("&2Increase (left)\n" +
-                    "&4Decrease(right)");
-        }
-
-        if (this.getSetting() instanceof String) {
-            return ColorTranslator.translateColorCodes("&3Click to edit");
-        }
-
-        if (this.getSetting() instanceof Boolean) {
-            return ColorTranslator.translateColorCodes("&3Click to toggle");
-        }
-
-        if (this.getSetting() instanceof List) {
-            return ColorTranslator.translateColorCodes("&3Click to view/edit");
-        }
-
-        return "";
-    }
-
-    public void handleItemClick(InventoryClickEvent event) {
-        int max = 128;
-        int jump = 1;
-
-        if (event.getCurrentItem().getType() == Material.IRON_BARS) {
-            max = 30000000;
-            jump = 50;
-        }
-
-        if (this.getSetting() instanceof Integer) {
-            int current = (int) this.getSetting();
-            if (event.isLeftClick() && current != max) {
-                this.setIntValue(current + jump);
-            } else if (event.isRightClick() && current >= 1) {
-                this.setIntValue(current - jump);
+    val settingLore: String
+        get() {
+            if (setting is Int) {
+                return ColorTranslator.translateColorCodes(
+                    """
+    &2Increase (left)
+    &4Decrease(right)
+    """.trimIndent()
+                )
             }
 
-            return;
+            if (setting is String) {
+                return ColorTranslator.translateColorCodes("&3Click to edit")
+            }
+
+            if (setting is Boolean) {
+                return ColorTranslator.translateColorCodes("&3Click to toggle")
+            }
+
+            if (setting is List<*>) {
+                return ColorTranslator.translateColorCodes("&3Click to view/edit")
+            }
+
+            return ""
         }
 
-        if (this.getSetting() instanceof Boolean) {
-            if (!event.isLeftClick())
-                return;
-            boolean current = (boolean) this.getSetting();
-            this.setBooleanValue(!current);
+    fun handleItemClick(event: InventoryClickEvent) {
+        var max = 128
+        var jump = 1
 
-            return;
+        if (event.currentItem!!.type == Material.IRON_BARS) {
+            max = 30000000
+            jump = 50
         }
 
-        if (this.getSetting() instanceof String) {
-            if (!event.isLeftClick())
-                return;
+        if (setting is Int) {
+            val current = setting as Int
+            if (event.isLeftClick && current != max) {
+                this.setIntValue(current + jump)
+            } else if (event.isRightClick && current >= 1) {
+                this.setIntValue(current - jump)
+            }
+
+            return
+        }
+
+        if (setting is Boolean) {
+            if (!event.isLeftClick) return
+            val current = setting as Boolean
+            this.setBooleanValue(!current)
+
+            return
+        }
+
+        if (setting is String) {
+            if (!event.isLeftClick) return
             // Open sign, worry about this later
         }
 
-        if (this.getSetting() instanceof List) {
-            if (!event.isLeftClick())
-                return;
+        if (setting is List<*>) {
+            if (!event.isLeftClick) {
+            }
             // Open another menu, with a list of "settings", heads, or whatever.
             // Worry about this later
         }
