@@ -3,6 +3,7 @@ package net.matees.arcade.lavarise.settings;
 import org.bukkit.Material;
 
 import net.matees.settings.IntegerSetting;
+import org.jetbrains.annotations.NotNull;
 
 public class TimeToRise extends IntegerSetting {
 
@@ -17,13 +18,13 @@ public class TimeToRise extends IntegerSetting {
     }
 
     @Override
-    public String getName() {
+    public @NotNull String getName() {
         return "Time To Rise";
     }
 
     @Override
-    public String getDescription() {
-        return "Set how often lava rises";
+    public @NotNull String getDescription() {
+        return "Set how often lava rises. Can't change during minigame.";
     }
 
     @Override

@@ -7,6 +7,7 @@ import net.matees.Arcade
 import net.matees.arcade.Minigame
 import net.matees.arcade.MinigameType
 import net.matees.arcade.lavarise.settings.OnlyAirBlock
+import net.matees.arcade.lavarise.settings.TimeToRise
 import net.matees.settings.*
 import org.bukkit.Bukkit
 import org.bukkit.Material
@@ -46,7 +47,7 @@ class LavaRise private constructor() : Minigame() {
         get() = null
 
     override val settings: List<Setting<*>>
-        get() = java.util.List.of<Setting<*>>(OnlyAirBlock.Companion.instance)
+        get() = java.util.List.of<Setting<*>>(OnlyAirBlock.Companion.instance, TimeToRise.getInstance())
 
     override val settingsMenu: Class<out Menu?>
         get() = LavaRiseSettingsMenu::class.java
@@ -56,7 +57,7 @@ class LavaRise private constructor() : Minigame() {
             val item = ItemStack(Material.LAVA_BUCKET, 1)
             val meta = item.itemMeta
             meta.setDisplayName("§aLava Rise")
-            meta.lore = java.util.List.of(
+            meta.lore = listOf(
                 ColorTranslator.translateColorCodes("§7Lava rises every minute"),
                 ColorTranslator.translateColorCodes("§7Build up and don't die!"),
                 ColorTranslator.translateColorCodes("&3Last to die wins.")
@@ -125,7 +126,7 @@ class LavaRise private constructor() : Minigame() {
                     yCoord++
                     Bukkit.broadcastMessage("§cRaised lava level to y=" + yCoord)
                 }
-            }.runTaskTimer(it, 0L, 20)
+            }.runTaskTimer(it, 0L, (getSetting("Time To Rise")?.setting as Int * 20).toLong())
         }
     }
 
@@ -163,7 +164,7 @@ class LavaRise private constructor() : Minigame() {
                 yCoord--
                 Bukkit.broadcastMessage("§cCurrent y = " + yCoord)
             }
-        }.runTaskTimer(Arcade.Companion.plugin!!, 0L, 10)
+        }.runTaskTimer(Arcade.Companion.plugin!!, 0L, 5)
     }
 
     companion object {
