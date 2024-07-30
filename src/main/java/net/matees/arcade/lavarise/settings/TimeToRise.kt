@@ -4,7 +4,7 @@ import net.matees.settings.IntegerSetting
 import org.bukkit.Material
 
 class TimeToRise private constructor() : IntegerSetting() {
-    override var setting: Int? = 5 // SEconds
+    override var setting: Int? = 5 // Seconds
 
     override val name: String
         get() = "Time To Rise"
