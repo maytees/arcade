@@ -3,7 +3,6 @@ package net.matees.arcade.mobrush.listeners
 import net.matees.arcade.mobrush.MobRush
 import org.bukkit.entity.Creature
 import org.bukkit.entity.Enemy
-import org.bukkit.entity.Entity
 import org.bukkit.entity.EntityType
 import org.bukkit.entity.Monster
 import org.bukkit.event.EventHandler

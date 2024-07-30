@@ -2,12 +2,17 @@ package net.matees.settings.global
 
 import net.matees.settings.BooleanSetting
 import net.matees.settings.Global
+import org.bukkit.Bukkit
 import org.bukkit.Material
 
 class PVPEnabled private constructor() : BooleanSetting(), Global {
     override var setting: Boolean? = true
 
     override fun onChange() {
+        val world = Bukkit.getWorld("world")
+        if(world != null) {
+            world.pvp = this.setting!!;
+        }
     }
 
     override val name: String

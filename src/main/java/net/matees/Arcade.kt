@@ -3,6 +3,7 @@ package net.matees
 import me.kodysimpson.simpapi.command.CommandManager
 import me.kodysimpson.simpapi.menu.MenuManager
 import net.matees.arcade.Minigame
+import net.matees.arcade.deathswap.DeathSwap
 import net.matees.arcade.itemrush.ItemRush
 import net.matees.arcade.lavarise.LavaRise
 import net.matees.arcade.mobrush.MobRush
@@ -44,7 +45,8 @@ class Arcade : JavaPlugin() {
         minigames = listOf<Minigame>(
             ItemRush.instance,
             MobRush.instance,  // Manhunt.getInstance(), WIP
-            LavaRise.instance
+            LavaRise.instance,
+            DeathSwap.instance
         )
 
         for (listener in GlobalSettings.Companion.instance.listeners) {
