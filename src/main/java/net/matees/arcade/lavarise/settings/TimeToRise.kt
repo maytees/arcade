@@ -1,50 +1,24 @@
-package net.matees.arcade.lavarise.settings;
+package net.matees.arcade.lavarise.settings
 
-import org.bukkit.Material;
+import net.matees.settings.IntegerSetting
+import org.bukkit.Material
 
-import net.matees.settings.IntegerSetting;
-import org.jetbrains.annotations.NotNull;
+class TimeToRise private constructor() : IntegerSetting() {
+    override var setting: Int? = 5 // SEconds
 
-public class TimeToRise extends IntegerSetting {
+    override val name: String
+        get() = "Time To Rise"
 
-    private static final TimeToRise INSTANCE = new TimeToRise();
-    private Integer setting = 5; // SEconds
+    override val description: String
+        get() = "Set how often lava rises. Can't change during minigame."
 
-    private TimeToRise() {
+    override val menuItemMaterial: Material
+        get() = Material.RABBIT_FOOT
+
+    override val menuItemSlot: Int
+        get() = 15
+
+    companion object {
+        val instance: TimeToRise = TimeToRise()
     }
-
-    public static TimeToRise getInstance() {
-        return INSTANCE;
-    }
-
-    @Override
-    public @NotNull String getName() {
-        return "Time To Rise";
-    }
-
-    @Override
-    public @NotNull String getDescription() {
-        return "Set how often lava rises. Can't change during minigame.";
-    }
-
-    @Override
-    public Integer getSetting() {
-        return this.setting;
-    }
-
-    @Override
-    public void setSetting(Integer setting) {
-        this.setting = setting;
-    }
-
-    @Override
-    public Material getMenuItemMaterial() {
-        return Material.RABBIT_FOOT;
-    }
-
-    @Override
-    public int getMenuItemSlot() {
-        return 15;
-    }
-
 }
