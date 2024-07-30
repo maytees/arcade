@@ -13,7 +13,7 @@ class TimeToRise private constructor() : IntegerSetting() {
         get() = "Set how often lava rises. Can't change during minigame."
 
     override val menuItemMaterial: Material
-        get() = Material.RABBIT_FOOT
+        get() = Material.REPEATER
 
     override val menuItemSlot: Int
         get() = 15
