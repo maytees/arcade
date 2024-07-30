@@ -122,7 +122,7 @@ class DeathSwap private constructor() : Minigame() {
                 override fun run() {
                     if (countdown > 0) {
                         Bukkit.broadcastMessage(
-                            "${player1.name} is swapping with ${player2.name} in $countdown..."
+                            ColorTranslator.translateColorCodes("&3&lRandomly swapping players in $countdown...")
                         )
                         countdown--
                     } else {
