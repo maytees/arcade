@@ -14,8 +14,12 @@ import org.bukkit.entity.Player
 import org.bukkit.event.Listener
 import org.bukkit.inventory.ItemStack
 import org.bukkit.scheduler.BukkitRunnable
+import org.bukkit.scheduler.BukkitTask
 
 class DeathSwap private constructor() : Minigame() {
+    private var mainTask: BukkitTask? = null;
+    private var countdownTask: BukkitTask? = null;
+
     override val name: String
         get() = "Mob Rush"
 
@@ -70,7 +74,7 @@ class DeathSwap private constructor() : Minigame() {
         }
 
         Arcade.plugin?.let {
-            object : BukkitRunnable() {
+            mainTask = object : BukkitRunnable() {
                 override fun run() {
                     val players = Bukkit.getOnlinePlayers().toList()
                     val playerCount = players.size
@@ -106,16 +110,20 @@ class DeathSwap private constructor() : Minigame() {
     }
 
     override fun onStopMinigame() {
+        mainTask?.cancel();
+        countdownTask?.cancel()
     }
 
     private fun startCountdown(player1: Player, player2: Player) {
         Arcade.plugin?.let {
-            object : BukkitRunnable() {
+            countdownTask = object : BukkitRunnable() {
                 var countdown = 10
 
                 override fun run() {
                     if (countdown > 0) {
-                        Bukkit.broadcastMessage("${player1.name} is swapping with ${player2.name} in $countdown...")
+                        Bukkit.broadcastMessage(
+                            "${player1.name} is swapping with ${player2.name} in $countdown..."
+                        )
                         countdown--
                     } else {
                         // Swap players when countdown reaches zero
