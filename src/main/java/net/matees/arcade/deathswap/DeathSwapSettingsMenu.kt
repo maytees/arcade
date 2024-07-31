@@ -7,7 +7,7 @@ import net.matees.settings.SettingsMenu
 
 class DeathSwapSettingsMenu(playerMenuUtility: PlayerMenuUtility?) : SettingsMenu(playerMenuUtility) {
     override fun getMenuName(): String {
-        return "Mob Rush Settings"
+        return "Death Swap Settings"
     }
 
     override val minigame: Minigame
