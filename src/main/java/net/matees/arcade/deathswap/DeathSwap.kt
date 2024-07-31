@@ -28,7 +28,7 @@ class DeathSwap private constructor() : Minigame() {
         get() = "Mob Rush"
 
     override val minigameType: MinigameType
-        get() = MinigameType.MobRush
+        get() = MinigameType.DeathSwap
 
     override val listeners: List<Listener>
         get() = listOf<Listener>(
