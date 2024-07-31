@@ -31,6 +31,8 @@ class Arcade : JavaPlugin() {
             e.printStackTrace()
         }
         setupArcade()
+
+        logger.info("Started Arcade")
     }
 
     @Throws(NoSuchFieldException::class, IllegalAccessException::class)
