@@ -7,6 +7,7 @@ import net.matees.Arcade
 import net.matees.arcade.Minigame
 import net.matees.arcade.MinigameType
 import net.matees.arcade.deathswap.settings.DisplayCountdown
+import net.matees.arcade.deathswap.settings.MentionWho
 import net.matees.arcade.deathswap.settings.TimeBetween
 import net.matees.settings.*
 import org.bukkit.Bukkit
@@ -49,6 +50,7 @@ class DeathSwap private constructor() : Minigame() {
         get() = listOf<Setting<*>>(
             TimeBetween.instance,
             DisplayCountdown.instance,
+            MentionWho.instance
         )
 
     override val settingsMenu: Class<out Menu?>
