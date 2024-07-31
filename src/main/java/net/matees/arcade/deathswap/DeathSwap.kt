@@ -6,9 +6,12 @@ import me.kodysimpson.simpapi.menu.Menu
 import net.matees.Arcade
 import net.matees.arcade.Minigame
 import net.matees.arcade.MinigameType
+import net.matees.arcade.deathswap.settings.DisplayCountdown
+import net.matees.arcade.deathswap.settings.TimeBetween
 import net.matees.settings.*
 import org.bukkit.Bukkit
 import org.bukkit.Bukkit.getLogger
+import org.bukkit.Color
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.Listener
@@ -23,7 +26,7 @@ class DeathSwap private constructor() : Minigame() {
     override val name: String
         get() = "Mob Rush"
 
-    override val minigameType: MinigameType?
+    override val minigameType: MinigameType
         get() = MinigameType.MobRush
 
     override val listeners: List<Listener>
@@ -44,6 +47,8 @@ class DeathSwap private constructor() : Minigame() {
 
     override val settings: List<Setting<*>>
         get() = listOf<Setting<*>>(
+            TimeBetween.instance,
+            DisplayCountdown.instance,
         )
 
     override val settingsMenu: Class<out Menu?>
@@ -105,7 +110,9 @@ class DeathSwap private constructor() : Minigame() {
                         }
                     }
                 }
-            }.runTaskTimer(Arcade.Companion.plugin!!, 0, 2 * 60 * 20)
+                // Subtract 20 to make time for the countdown (for initial delay)
+            }.runTaskTimer(Arcade.Companion.plugin!!, (getSetting("Time Between")?.setting as Int * 20).toLong() - 10 * 20,
+                (getSetting("Time Between")?.setting as Int * 20).toLong())
         }
     }
 
@@ -121,10 +128,19 @@ class DeathSwap private constructor() : Minigame() {
 
                 override fun run() {
                     if (countdown > 0) {
-                        Bukkit.broadcastMessage(
-                            ColorTranslator.translateColorCodes("&3&lRandomly swapping players in $countdown...")
-                        )
+                        if(countdown == 10) {
+                            if(getSetting("Mention Who")?.setting == true) {
+                                player1.sendMessage(ColorTranslator.translateColorCodes("&cYou are swapping locations with &l" + player2.name))
+                                player2.sendMessage(ColorTranslator.translateColorCodes("&cYou are swapping locations with &l" + player1.name))
+                            }
+                        }
+                        if(getSetting("Display Countdown")?.setting == true) {
+                            Bukkit.broadcastMessage(
+                                ColorTranslator.translateColorCodes("&3&lRandomly swapping players in $countdown...")
+                            )
+                        }
                         countdown--
+
                     } else {
                         // Swap players when countdown reaches zero
                         swapPlayers(player1, player2)

@@ -83,6 +83,10 @@ abstract class Setting<T> {
             jump = 50
         }
 
+        if(!event.currentItem!!.displayName().equals("Time Between")) {
+            max = 3600
+        }
+
         if (setting is Int) {
             val current = setting as Int
             if (event.isLeftClick && current != max) {
