@@ -1,5 +1,6 @@
 package net.matees.menus
 
+import co.aikar.timings.TimingsManager
 import me.kodysimpson.simpapi.colors.ColorTranslator
 import me.kodysimpson.simpapi.exceptions.MenuManagerException
 import me.kodysimpson.simpapi.exceptions.MenuManagerNotSetupException
@@ -8,10 +9,15 @@ import me.kodysimpson.simpapi.menu.MenuManager
 import me.kodysimpson.simpapi.menu.PlayerMenuUtility
 import net.matees.Arcade
 import net.matees.arcade.Minigame
+import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.inventory.ItemStack
+import io.papermc.paper.command.brigadier.argument.ArgumentTypes.player
+import co.aikar.timings.TimingsManager.url
+
+
 
 class MinigameMenu(playerMenuUtility: PlayerMenuUtility?) : Menu(playerMenuUtility) {
     override fun getMenuName(): String {
@@ -35,6 +41,20 @@ class MinigameMenu(playerMenuUtility: PlayerMenuUtility?) : Menu(playerMenuUtili
         if (inventoryClickEvent.currentItem!!.type == Material.GHAST_TEAR) {
             MenuManager.openMenu(GlobalSettingsMenu::class.java, inventoryClickEvent.whoClicked as Player)
             inventory.close()
+            return
+        }
+
+        if (inventoryClickEvent.currentItem!!.type == Material.PAPER) {
+            inventory.close()
+            val player = inventoryClickEvent.whoClicked as Player
+            val url = "https://modrinth.com/plugin/arcade/changelog"
+
+            val jsonMessage =
+                "tellraw " + player.name + " {\"text\":\"" +ColorTranslator.translateColorCodes("§aClick me to view changelogs!") +  "\",\"clickEvent\":{\"action\":\"open_url\",\"value\":\"$url\"}}"
+            Bukkit.getServer().dispatchCommand(
+                Bukkit.getConsoleSender(),
+                jsonMessage
+            )
             return
         }
 
@@ -115,5 +135,15 @@ class MinigameMenu(playerMenuUtility: PlayerMenuUtility?) : Menu(playerMenuUtili
         settingsMeta.setDisplayName("Global Settings")
         globalSettings.setItemMeta(settingsMeta)
         inventory.setItem(48, globalSettings)
+
+        val arcadeInfo = ItemStack(Material.PAPER, 1)
+        val arcadeInfoMeta = arcadeInfo.itemMeta
+        arcadeInfoMeta.setDisplayName("Arcade Info")
+        arcadeInfoMeta.lore = listOf(
+            ColorTranslator.translateColorCodes("§cAlpha-0.0.3"),
+            ColorTranslator.translateColorCodes("§aClick to view changelog.")
+        )
+        arcadeInfo.setItemMeta(arcadeInfoMeta)
+        inventory.setItem(45, arcadeInfo)
     }
 }
