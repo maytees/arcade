@@ -49,7 +49,7 @@ class BlockBreak : Listener {
         if (randomMobCount) {
             val count = Random().nextInt(maxMobCount + 1)
             for (i in 0 until count) {
-                event.block.world.spawnEntity(event.block.location, mobType as EntityType)
+                event.block.world.spawnEntity(event.block.location.clone().add(0.0,2.0,0.0), mobType as EntityType)
             }
 
             return

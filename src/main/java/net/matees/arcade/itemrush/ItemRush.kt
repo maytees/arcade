@@ -12,6 +12,7 @@ import net.matees.arcade.itemrush.settings.RandomItemCount
 import net.matees.settings.*
 import org.bukkit.Bukkit
 import org.bukkit.Material
+import org.bukkit.event.HandlerList
 import org.bukkit.event.Listener
 import org.bukkit.inventory.ItemStack
 
@@ -22,10 +23,10 @@ class ItemRush private constructor() : Minigame() {
     override val minigameType: MinigameType?
         get() = MinigameType.ItemRush
 
+    private val blockBreakListener = BlockBreak()
+
     override val listeners: List<Listener>
-        get() = listOf<Listener>(
-            BlockBreak()
-        )
+        get() = listOf(blockBreakListener)
 
     override val subCommands: List<Class<out SubCommand?>?>?
         get() = null
@@ -40,16 +41,30 @@ class ItemRush private constructor() : Minigame() {
         get() = null
 
     override val settings: List<Setting<*>>
-        get() = java.util.List.of<Setting<*>>(
-            MaxItemCount.Companion.instance,
-            RandomItemCount.Companion.instance
+        get() = listOf(
+            MaxItemCount.instance,
+            RandomItemCount.instance
         )
 
     override fun doStartMinigame() {
         Bukkit.broadcastMessage("§aItem Rush has started!")
-        for (listener in this.listeners) {
-            Arcade.Companion.plugin?.server?.pluginManager
-                ?.registerEvents(listener, Arcade.Companion.plugin!!)
+        registerListeners()
+    }
+
+    override fun onStopMinigame() {
+        this.unregisterListeners()
+    }
+
+    private fun registerListeners() {
+        listeners.forEach { listener ->
+            Arcade.plugin?.server?.pluginManager
+                ?.registerEvents(listener, Arcade.plugin!!)
+        }
+    }
+
+    private fun unregisterListeners() {
+        listeners.forEach { listener ->
+            HandlerList.unregisterAll(listener)
         }
     }
 
@@ -57,22 +72,18 @@ class ItemRush private constructor() : Minigame() {
         get() {
             val item = ItemStack(Material.DIAMOND, 1)
             val meta = item.itemMeta
-            meta.setDisplayName("§aItem Rush")
-            meta.lore = listOf(
+            meta?.setDisplayName("§aItem Rush")
+            meta?.lore = listOf(
                 ColorTranslator.translateColorCodes("§7Break blocks to get items!"),
                 ColorTranslator.translateColorCodes("§7Get lucky!"),
                 ColorTranslator.translateColorCodes("&3Right Click to open settings")
             )
-
-            item.setItemMeta(meta)
+            item.itemMeta = meta
             return item
         }
 
     override val settingsMenu: Class<out Menu?>
         get() = ItemRushSettingsMenu::class.java
-
-    override fun onStopMinigame() {
-    }
 
     companion object {
         val instance: ItemRush = ItemRush()

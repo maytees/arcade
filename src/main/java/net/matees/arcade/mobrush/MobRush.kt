@@ -14,6 +14,7 @@ import net.matees.arcade.mobrush.settings.RandomMobCount
 import net.matees.settings.*
 import org.bukkit.Bukkit
 import org.bukkit.Material
+import org.bukkit.event.HandlerList
 import org.bukkit.event.Listener
 import org.bukkit.inventory.ItemStack
 
@@ -24,10 +25,10 @@ class MobRush private constructor() : Minigame() {
     override val minigameType: MinigameType?
         get() = MinigameType.MobRush
 
+    private val blockBreakListener = BlockBreak()
+
     override val listeners: List<Listener>
-        get() = listOf<Listener>(
-            BlockBreak()
-        )
+        get() = listOf<Listener>(blockBreakListener)
 
     override val subCommands: List<Class<out SubCommand?>?>?
         get() = null
@@ -78,6 +79,13 @@ class MobRush private constructor() : Minigame() {
     }
 
     override fun onStopMinigame() {
+        unregisterListeners()
+    }
+
+    private fun unregisterListeners() {
+        listeners.forEach { listener ->
+            HandlerList.unregisterAll(listener)
+        }
     }
 
     companion object {
