@@ -7,8 +7,6 @@ Every block you break spawns a random mob!
 
 ## Demo
 ![Demo](/mobrushdemo.gif)
-*Disclaimer, currently there is a bug where two or more mob types spawn.*
-*As you can see, Parrots, Drowned and Ravegers spawn at the same time.*
 
 ## Settings
 

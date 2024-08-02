@@ -6,7 +6,6 @@ Every block you break spawns a random item!
 
 ## Demo
 ![Demo](/itemrushdemo.gif)
-*Disclaimer, currently there is a bug where more than one types of items spawn.*
 
 ## Settings
 
