@@ -4,7 +4,7 @@ import net.matees.settings.IntegerSetting
 import org.bukkit.Material
 
 class MaxItemCount private constructor() : IntegerSetting() {
-    private var maxItemCount = 16
+    private var maxItemCount = 1
 
     override val name: String
         get() = "Max Item Count"
