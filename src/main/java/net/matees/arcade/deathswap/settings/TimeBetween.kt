@@ -6,6 +6,9 @@ import org.bukkit.Material
 class TimeBetween : IntegerSetting() {
     override var setting: Int? = 60 // Seconds
 
+    override val min: Int
+        get() = 1
+
     override val name: String
         get() = "Time Between"
 

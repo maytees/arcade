@@ -8,6 +8,9 @@ import org.bukkit.Material
 class WorldBorderSize private constructor() : IntegerSetting(), Global {
     override var setting: Int? = 500
 
+    override val min: Int
+        get() = 50
+
     override val name: String
         get() = "World Border Size"
 
