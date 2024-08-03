@@ -4,7 +4,7 @@ import net.matees.settings.*
 import org.bukkit.Bukkit
 import org.bukkit.Material
 
-class EnableWorldBorder private constructor() : BooleanSetting(), Global {
+class EnableWorldBorder private constructor() : AbstractBooleanSetting(), IGlobal {
     override var setting: Boolean? = false
 
     override val name: String

@@ -1,9 +1,9 @@
 package net.matees.arcade.lavarise.settings
 
-import net.matees.settings.IntegerSetting
+import net.matees.settings.AbstractIntegerSetting
 import org.bukkit.Material
 
-class TimeToRise private constructor() : IntegerSetting() {
+class TimeToRise private constructor() : AbstractIntegerSetting() {
     override var setting: Int? = 5 // Seconds
 
     override val name: String

@@ -1,9 +1,9 @@
 package net.matees.arcade.mobrush.settings
 
-import net.matees.settings.IntegerSetting
+import net.matees.settings.AbstractIntegerSetting
 import org.bukkit.Material
 
-class MaxMobCount private constructor() : IntegerSetting() {
+class MaxMobCount private constructor() : AbstractIntegerSetting() {
     private var maxMobCount = 1
 
     override val name: String

@@ -42,8 +42,8 @@ class MobRush private constructor() : Minigame() {
     override val commandUsage: String?
         get() = null
 
-    override val settings: List<Setting<*>>
-        get() = listOf<Setting<*>>(
+    override val settings: List<AbstractSetting<*>>
+        get() = listOf<AbstractSetting<*>>(
             MaxMobCount.instance,
             RandomMobCount.instance,
             EnableHostileMobs.instance,

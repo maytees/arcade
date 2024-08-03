@@ -1,9 +1,9 @@
 package net.matees.arcade.itemrush.settings
 
-import net.matees.settings.IntegerSetting
+import net.matees.settings.AbstractIntegerSetting
 import org.bukkit.Material
 
-class MaxItemCount private constructor() : IntegerSetting() {
+class MaxItemCount private constructor() : AbstractIntegerSetting() {
     private var maxItemCount = 1
 
     override val name: String

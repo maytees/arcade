@@ -46,8 +46,8 @@ class LavaRise private constructor() : Minigame() {
     override val commandUsage: String?
         get() = null
 
-    override val settings: List<Setting<*>>
-        get() = listOf<Setting<*>>(OnlyAirBlock.instance, TimeToRise.instance)
+    override val settings: List<AbstractSetting<*>>
+        get() = listOf<AbstractSetting<*>>(OnlyAirBlock.instance, TimeToRise.instance)
 
     override val settingsMenu: Class<out Menu?>
         get() = LavaRiseSettingsMenu::class.java

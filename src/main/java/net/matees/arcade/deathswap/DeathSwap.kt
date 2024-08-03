@@ -12,7 +12,6 @@ import net.matees.arcade.deathswap.settings.TimeBetween
 import net.matees.settings.*
 import org.bukkit.Bukkit
 import org.bukkit.Bukkit.getLogger
-import org.bukkit.Color
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.Listener
@@ -46,8 +45,8 @@ class DeathSwap private constructor() : Minigame() {
     override val commandUsage: String?
         get() = null
 
-    override val settings: List<Setting<*>>
-        get() = listOf<Setting<*>>(
+    override val settings: List<AbstractSetting<*>>
+        get() = listOf<AbstractSetting<*>>(
             TimeBetween.instance,
             DisplayCountdown.instance,
             MentionWho.instance

@@ -1,13 +1,13 @@
 package net.matees.settings.global
 
-import net.matees.settings.BooleanSetting
-import net.matees.settings.Global
+import net.matees.settings.AbstractBooleanSetting
+import net.matees.settings.IGlobal
 import org.bukkit.Bukkit
 import org.bukkit.GameMode
 import org.bukkit.Material
 import org.bukkit.entity.Player
 
-class FlightEnabled private constructor() : BooleanSetting(), Global {
+class FlightEnabled private constructor() : AbstractBooleanSetting(), IGlobal {
     override var setting: Boolean? = false
 
     override fun onChange() {

@@ -1,11 +1,11 @@
 package net.matees.settings.global
 
-import net.matees.settings.BooleanSetting
-import net.matees.settings.Global
+import net.matees.settings.AbstractBooleanSetting
+import net.matees.settings.IGlobal
 import org.bukkit.Bukkit
 import org.bukkit.Material
 
-class PVPEnabled private constructor() : BooleanSetting(), Global {
+class PVPEnabled private constructor() : AbstractBooleanSetting(), IGlobal {
     override var setting: Boolean? = true
 
     override fun onChange() {

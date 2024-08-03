@@ -1,10 +1,9 @@
 package net.matees.arcade.deathswap.settings
 
-import net.matees.settings.BooleanSetting
-import net.matees.settings.IntegerSetting
+import net.matees.settings.AbstractBooleanSetting
 import org.bukkit.Material
 
-class DisplayCountdown : BooleanSetting() {
+class DisplayCountdown : AbstractBooleanSetting() {
     override var setting: Boolean? = true // Seconds
 
     override val name: String

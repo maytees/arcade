@@ -1,6 +1,5 @@
 package net.matees.menus
 
-import co.aikar.timings.TimingsManager
 import me.kodysimpson.simpapi.colors.ColorTranslator
 import me.kodysimpson.simpapi.exceptions.MenuManagerException
 import me.kodysimpson.simpapi.exceptions.MenuManagerNotSetupException
@@ -14,10 +13,6 @@ import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.inventory.ItemStack
-import io.papermc.paper.command.brigadier.argument.ArgumentTypes.player
-import co.aikar.timings.TimingsManager.url
-
-
 
 class MinigameMenu(playerMenuUtility: PlayerMenuUtility?) : Menu(playerMenuUtility) {
     override fun getMenuName(): String {

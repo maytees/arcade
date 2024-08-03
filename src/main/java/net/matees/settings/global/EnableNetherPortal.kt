@@ -1,10 +1,10 @@
 package net.matees.settings.global
 
-import net.matees.settings.BooleanSetting
-import net.matees.settings.Global
+import net.matees.settings.AbstractBooleanSetting
+import net.matees.settings.IGlobal
 import org.bukkit.Material
 
-class EnableNetherPortal private constructor() : BooleanSetting(), Global {
+class EnableNetherPortal private constructor() : AbstractBooleanSetting(), IGlobal {
     override var setting: Boolean? = false
 
     override val name: String

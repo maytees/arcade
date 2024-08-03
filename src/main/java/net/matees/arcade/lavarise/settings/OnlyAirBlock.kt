@@ -1,9 +1,9 @@
 package net.matees.arcade.lavarise.settings
 
-import net.matees.settings.BooleanSetting
+import net.matees.settings.AbstractBooleanSetting
 import org.bukkit.Material
 
-class OnlyAirBlock private constructor() : BooleanSetting() {
+class OnlyAirBlock private constructor() : AbstractBooleanSetting() {
     override var setting: Boolean? = true
 
     override val name: String

@@ -24,12 +24,12 @@ class GlobalSettingsMenu(playerMenuUtility: PlayerMenuUtility?) : Menu(playerMen
     @Throws(MenuManagerNotSetupException::class, MenuManagerException::class)
     override fun handleMenu(event: InventoryClickEvent) {
         for (s in GlobalSettings.Companion.instance.settings) {
-            if (s is Global) {
+            if (s is IGlobal) {
                 if (s.menuItem.isSimilar(event.currentItem)) {
                     s.handleItemClick(event)
 
                     // Weird
-                    val setting = s as Global
+                    val setting = s as IGlobal
                     setting.onChange()
 
                     inventory.clear()
