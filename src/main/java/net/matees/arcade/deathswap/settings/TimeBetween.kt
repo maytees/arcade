@@ -7,7 +7,7 @@ class TimeBetween : AbstractIntegerSetting() {
     override var setting: Int? = 60 // Seconds
 
     override val min: Int
-        get() = 1
+        get() = 20 // Leaves time for countdown
 
     override val name: String
         get() = "Time Between"
