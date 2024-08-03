@@ -16,14 +16,15 @@ abstract class AbstractSetting<T>(val settingType: SettingType) {
 
             meta.setDisplayName(ColorTranslator.translateColorCodes("&l&6") + this.name)
             meta.lore = listOf(
-                if(settingType == SettingType.PlayerBooleanSetting)
-                    ColorTranslator.translateColorCodes("Current:&2 ${(this.setting as HashMap<Player, Boolean>)
-                        .filter { it.value }
-                        .map { it.key.name }
-                        .joinToString(", ")
-                        .ifEmpty { "None" }
+                if (settingType == SettingType.PlayerBooleanSetting)
+                    ColorTranslator.translateColorCodes("Current:&2 ${
+                        (this.setting as HashMap<Player, Boolean>)
+                            .filter { it.value }
+                            .map { it.key.name }
+                            .joinToString(", ")
+                            .ifEmpty { "None" }
                     }")
-                    else
+                else
                     ColorTranslator.translateColorCodes("Current: &2" + this.setting),
                 ColorTranslator.translateColorCodes("&o&7" + this.description),
                 this.settingLore
@@ -52,9 +53,9 @@ abstract class AbstractSetting<T>(val settingType: SettingType) {
 
     open fun setStringValue(value: String?) {}
 
-    open fun setPlayerBooleanSetting (value: HashMap<Player, Boolean>?) {}
+    open fun setPlayerBooleanSetting(value: HashMap<Player, Boolean>?) {}
 
-    open fun openPlayerListMenu (player: Player) {}
+    open fun openPlayerListMenu(player: Player) {}
 
     abstract val menuItemSlot: Int
 

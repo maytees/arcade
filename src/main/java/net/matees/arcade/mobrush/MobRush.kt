@@ -11,7 +11,7 @@ import net.matees.arcade.mobrush.settings.EnableHostileMobs
 import net.matees.arcade.mobrush.settings.EnablePeacefulMobs
 import net.matees.arcade.mobrush.settings.MaxMobCount
 import net.matees.arcade.mobrush.settings.RandomMobCount
-import net.matees.settings.*
+import net.matees.settings.AbstractSetting
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.event.HandlerList

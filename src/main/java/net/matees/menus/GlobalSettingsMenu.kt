@@ -4,7 +4,7 @@ import me.kodysimpson.simpapi.exceptions.MenuManagerException
 import me.kodysimpson.simpapi.exceptions.MenuManagerNotSetupException
 import me.kodysimpson.simpapi.menu.Menu
 import me.kodysimpson.simpapi.menu.PlayerMenuUtility
-import net.matees.settings.*
+import net.matees.settings.IGlobal
 import net.matees.settings.global.GlobalSettings
 import org.bukkit.event.inventory.InventoryClickEvent
 

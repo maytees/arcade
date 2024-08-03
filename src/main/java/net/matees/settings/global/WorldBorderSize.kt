@@ -1,7 +1,7 @@
 package net.matees.settings.global
 
-import net.matees.settings.IGlobal
 import net.matees.settings.AbstractIntegerSetting
+import net.matees.settings.IGlobal
 import org.bukkit.Bukkit
 import org.bukkit.Material
 

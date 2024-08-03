@@ -44,7 +44,8 @@ public class ConfigManager {
             if (!messagesConfigFile.exists()) {
                 try {
                     config = configClass.getConstructor().newInstance();
-                } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+                } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
+                         NoSuchMethodException e) {
                     e.printStackTrace();
                 }
 

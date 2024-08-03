@@ -39,7 +39,8 @@ public class CommandManager {
             try {
                 Constructor<? extends SubCommand> constructor = subcommand.getConstructor();
                 return constructor.newInstance();
-            } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+            } catch (InstantiationException | IllegalAccessException | NoSuchMethodException |
+                     InvocationTargetException e) {
                 e.printStackTrace();
             }
             return null;

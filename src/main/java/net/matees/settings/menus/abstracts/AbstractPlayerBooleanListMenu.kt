@@ -17,7 +17,6 @@ import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 import java.util.*
-import kotlin.collections.HashMap
 
 abstract class AbstractPlayerBooleanListMenu(playerMenuUtility: PlayerMenuUtility?) : PaginatedMenu(playerMenuUtility) {
 
@@ -49,7 +48,7 @@ abstract class AbstractPlayerBooleanListMenu(playerMenuUtility: PlayerMenuUtilit
 
     @Throws(MenuManagerNotSetupException::class, MenuManagerException::class)
     override fun handleMenu(event: InventoryClickEvent) {
-        if(event.currentItem?.type != Material.PLAYER_HEAD) {
+        if (event.currentItem?.type != Material.PLAYER_HEAD) {
             event.isCancelled = true
         }
 
@@ -57,8 +56,10 @@ abstract class AbstractPlayerBooleanListMenu(playerMenuUtility: PlayerMenuUtilit
         val uuidStr = itemMeta?.persistentDataContainer?.get(
             NamespacedKey(
                 Arcade.Companion.plugin!!,
-                "player_uuid"),
-            PersistentDataType.STRING)
+                "player_uuid"
+            ),
+            PersistentDataType.STRING
+        )
         val selectedPlayer = uuidStr?.let { Bukkit.getPlayer(UUID.fromString(it)) }
 
         if (selectedPlayer != null) {
@@ -74,7 +75,8 @@ abstract class AbstractPlayerBooleanListMenu(playerMenuUtility: PlayerMenuUtilit
                         as HashMap<Player, Boolean>).set(selectedPlayer, !current!!)
             }
         }
-        Bukkit.getLogger().info("After check, selected name: ${selectedPlayer?.name}, clicked item: ${event.currentItem!!.itemMeta.displayName}")
+        Bukkit.getLogger()
+            .info("After check, selected name: ${selectedPlayer?.name}, clicked item: ${event.currentItem!!.itemMeta.displayName}")
         inventory.clear()
         this.setMenuItems()
     }

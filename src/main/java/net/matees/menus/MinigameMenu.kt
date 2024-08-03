@@ -45,7 +45,7 @@ class MinigameMenu(playerMenuUtility: PlayerMenuUtility?) : Menu(playerMenuUtili
             val url = "https://modrinth.com/plugin/arcade/changelog"
 
             val jsonMessage =
-                "tellraw " + player.name + " {\"text\":\"" +ColorTranslator.translateColorCodes("§aClick me to view changelogs!") +  "\",\"clickEvent\":{\"action\":\"open_url\",\"value\":\"$url\"}}"
+                "tellraw " + player.name + " {\"text\":\"" + ColorTranslator.translateColorCodes("§aClick me to view changelogs!") + "\",\"clickEvent\":{\"action\":\"open_url\",\"value\":\"$url\"}}"
             Bukkit.getServer().dispatchCommand(
                 Bukkit.getConsoleSender(),
                 jsonMessage

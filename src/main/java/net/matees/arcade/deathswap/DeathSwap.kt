@@ -9,7 +9,7 @@ import net.matees.arcade.MinigameType
 import net.matees.arcade.deathswap.settings.DisplayCountdown
 import net.matees.arcade.deathswap.settings.MentionWho
 import net.matees.arcade.deathswap.settings.TimeBetween
-import net.matees.settings.*
+import net.matees.settings.AbstractSetting
 import org.bukkit.Bukkit
 import org.bukkit.Bukkit.getLogger
 import org.bukkit.Material
@@ -112,8 +112,10 @@ class DeathSwap private constructor() : Minigame() {
                     }
                 }
                 // Subtract 20 to make time for the countdown (for initial delay)
-            }.runTaskTimer(Arcade.Companion.plugin!!, (getSetting("Time Between")?.setting as Int * 20).toLong() - 10 * 20,
-                (getSetting("Time Between")?.setting as Int * 20).toLong())
+            }.runTaskTimer(
+                Arcade.Companion.plugin!!, (getSetting("Time Between")?.setting as Int * 20).toLong() - 10 * 20,
+                (getSetting("Time Between")?.setting as Int * 20).toLong()
+            )
         }
     }
 
@@ -129,13 +131,13 @@ class DeathSwap private constructor() : Minigame() {
 
                 override fun run() {
                     if (countdown > 0) {
-                        if(countdown == 10) {
-                            if(getSetting("Mention Who")?.setting == true) {
+                        if (countdown == 10) {
+                            if (getSetting("Mention Who")?.setting == true) {
                                 player1.sendMessage(ColorTranslator.translateColorCodes("&cYou are swapping locations with &l" + player2.name))
                                 player2.sendMessage(ColorTranslator.translateColorCodes("&cYou are swapping locations with &l" + player1.name))
                             }
                         }
-                        if(getSetting("Display Countdown")?.setting == true) {
+                        if (getSetting("Display Countdown")?.setting == true) {
                             Bukkit.broadcastMessage(
                                 ColorTranslator.translateColorCodes("&3&lRandomly swapping players in $countdown...")
                             )

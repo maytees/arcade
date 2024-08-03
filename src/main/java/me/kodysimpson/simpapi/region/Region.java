@@ -21,11 +21,11 @@ public class Region {
         this.corner2 = null;
     }
 
-    public boolean isSet(){
+    public boolean isSet() {
         return corner1 != null && corner2 != null;
     }
 
-    public World getWorld(){
+    public World getWorld() {
         return corner1.getWorld();
     }
 
@@ -76,10 +76,10 @@ public class Region {
         double zMax = Math.max(corner1.getZ(), corner2.getZ());
 
         final ArrayList<Block> bL = new ArrayList<>(this.getTotalBlockSize());
-        for(double x = xMin; x <= xMax; ++x) {
-            for(double y = yMin; y <= yMax; ++y) {
-                for(double z = zMin; z <= zMax; ++z) {
-                    final Block b = world.getBlockAt((int )x, (int) y, (int) z);
+        for (double x = xMin; x <= xMax; ++x) {
+            for (double y = yMin; y <= yMax; ++y) {
+                for (double z = zMin; z <= zMax; ++z) {
+                    final Block b = world.getBlockAt((int) x, (int) y, (int) z);
                     bL.add(b);
                 }
             }
@@ -91,7 +91,7 @@ public class Region {
         return this.isIn(player.getLocation());
     }
 
-    public List<Entity> getEntities(){
+    public List<Entity> getEntities() {
         List<Entity> entities = new ArrayList<>();
         for (Block block : blockList(corner1.getWorld())) {
             entities.addAll(block.getWorld().getNearbyEntities(block.getLocation(), 1, 1, 1));

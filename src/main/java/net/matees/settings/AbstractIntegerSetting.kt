@@ -4,7 +4,7 @@ abstract class AbstractIntegerSetting : AbstractSetting<Int?>(SettingType.Intege
     open val min = 1
 
     override fun setIntValue(value: Int) {
-        if(value < min) return
+        if (value < min) return
         setting = value
     }
 }

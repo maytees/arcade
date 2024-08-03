@@ -16,6 +16,7 @@ Every minute, a layer of lava rises.
 In the future we will implement a feature to prevent world crashing by only filling lava in a radius around a player.
 
 ## Demo
+
 ![Demo](/lavarisedemo.gif)
 
 ## Settings
@@ -23,11 +24,13 @@ In the future we will implement a feature to prevent world crashing by only fill
 Lava Rise has a few settings to offer.
 
 ### Only Air Block
+
 *Boolean Setting*
 
 Determines whether only air blocks should be filled with lava as it rises.
 
 ### Time To Rise
+
 *Integer Setting*
 
 **Warning! This setting can only take effect if set before game start!**

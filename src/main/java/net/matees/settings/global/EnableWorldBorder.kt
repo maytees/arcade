@@ -1,6 +1,7 @@
 package net.matees.settings.global
 
-import net.matees.settings.*
+import net.matees.settings.AbstractBooleanSetting
+import net.matees.settings.IGlobal
 import org.bukkit.Bukkit
 import org.bukkit.Material
 

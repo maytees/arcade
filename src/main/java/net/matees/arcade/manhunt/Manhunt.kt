@@ -6,7 +6,7 @@ import me.kodysimpson.simpapi.menu.Menu
 import net.matees.Arcade
 import net.matees.arcade.Minigame
 import net.matees.arcade.MinigameType
-import net.matees.settings.*
+import net.matees.settings.AbstractSetting
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.event.Listener

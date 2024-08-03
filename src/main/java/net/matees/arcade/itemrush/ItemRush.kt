@@ -9,7 +9,7 @@ import net.matees.arcade.MinigameType
 import net.matees.arcade.itemrush.listeners.BlockBreak
 import net.matees.arcade.itemrush.settings.MaxItemCount
 import net.matees.arcade.itemrush.settings.RandomItemCount
-import net.matees.settings.*
+import net.matees.settings.AbstractSetting
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.event.HandlerList

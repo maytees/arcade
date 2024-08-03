@@ -14,9 +14,9 @@ import java.util.stream.Collectors;
 public class ItemUtils {
 
     /**
-     * @param material The material to base the ItemStack on
+     * @param material    The material to base the ItemStack on
      * @param displayName The display name of the ItemStack
-     * @param lore The lore of the ItemStack, with the Strings being automatically color coded with ColorTranslator
+     * @param lore        The lore of the ItemStack, with the Strings being automatically color coded with ColorTranslator
      * @return The constructed ItemStack object
      */
     public static ItemStack makeItem(Material material, String displayName, String... lore) {

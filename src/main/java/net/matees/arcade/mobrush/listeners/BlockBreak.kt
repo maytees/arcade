@@ -1,7 +1,6 @@
 package net.matees.arcade.mobrush.listeners
 
 import net.matees.arcade.mobrush.MobRush
-import org.bukkit.Bukkit
 import org.bukkit.entity.Creature
 import org.bukkit.entity.Enemy
 import org.bukkit.entity.EntityType
@@ -50,7 +49,7 @@ class BlockBreak : Listener {
         if (randomMobCount) {
             val count = kotlin.random.Random.nextInt(1, maxMobCount + 1)
             for (i in 0 until count) {
-                event.block.world.spawnEntity(event.block.location.clone().add(0.0,2.0,0.0), mobType as EntityType)
+                event.block.world.spawnEntity(event.block.location.clone().add(0.0, 2.0, 0.0), mobType as EntityType)
             }
 
             return

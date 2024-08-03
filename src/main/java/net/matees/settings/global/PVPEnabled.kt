@@ -10,7 +10,7 @@ class PVPEnabled private constructor() : AbstractBooleanSetting(), IGlobal {
 
     override fun onChange() {
         val world = Bukkit.getWorld("world")
-        if(world != null) {
+        if (world != null) {
             world.pvp = this.setting!!;
         }
     }

@@ -1,6 +1,6 @@
 package net.matees.settings.global
 
-import net.matees.settings.*
+import net.matees.settings.AbstractSetting
 import net.matees.settings.global.listeners.PlayerJoinListener
 import net.matees.settings.global.listeners.PortalTravelEvent
 import org.bukkit.event.Listener
