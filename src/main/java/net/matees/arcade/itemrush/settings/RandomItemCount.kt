@@ -1,9 +1,9 @@
 package net.matees.arcade.itemrush.settings
 
-import net.matees.settings.BooleanSetting
+import net.matees.settings.AbstractBooleanSetting
 import org.bukkit.Material
 
-class RandomItemCount private constructor() : BooleanSetting() {
+class RandomItemCount private constructor() : AbstractBooleanSetting() {
     var randomItemCount: Boolean = true
 
     override val name: String

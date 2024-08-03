@@ -1,5 +1,5 @@
 package net.matees.settings
 
-interface Global {
+interface IGlobal {
     fun onChange()
 }

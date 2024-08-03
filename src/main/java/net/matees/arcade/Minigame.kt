@@ -2,12 +2,7 @@ package net.matees.arcade
 
 import me.kodysimpson.simpapi.command.SubCommand
 import me.kodysimpson.simpapi.menu.Menu
-import net.matees.Arcade
-import net.matees.settings.Setting
-import org.bukkit.Bukkit
-import org.bukkit.event.HandlerList
-import org.bukkit.event.HandlerList.getHandlerLists
-import org.bukkit.event.HandlerList.unregisterAll
+import net.matees.settings.AbstractSetting
 import org.bukkit.event.Listener
 import org.bukkit.inventory.ItemStack
 
@@ -28,11 +23,11 @@ abstract class Minigame {
 
     abstract val commandUsage: String?
 
-    abstract val settings: List<Setting<*>>
+    abstract val settings: List<AbstractSetting<*>>
 
     abstract val settingsMenu: Class<out Menu?>?
 
-    fun getSetting(name: String): Setting<*>? {
+    fun getSetting(name: String): AbstractSetting<*>? {
         for (setting in this.settings) {
             if (setting.name == name) {
                 return setting

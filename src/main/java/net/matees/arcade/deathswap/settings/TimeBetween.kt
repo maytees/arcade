@@ -1,9 +1,9 @@
 package net.matees.arcade.deathswap.settings
 
-import net.matees.settings.IntegerSetting
+import net.matees.settings.AbstractIntegerSetting
 import org.bukkit.Material
 
-class TimeBetween : IntegerSetting() {
+class TimeBetween : AbstractIntegerSetting() {
     override var setting: Int? = 60 // Seconds
 
     override val min: Int

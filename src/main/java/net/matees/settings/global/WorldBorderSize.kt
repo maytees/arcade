@@ -1,11 +1,11 @@
 package net.matees.settings.global
 
-import net.matees.settings.Global
-import net.matees.settings.IntegerSetting
+import net.matees.settings.IGlobal
+import net.matees.settings.AbstractIntegerSetting
 import org.bukkit.Bukkit
 import org.bukkit.Material
 
-class WorldBorderSize private constructor() : IntegerSetting(), Global {
+class WorldBorderSize private constructor() : AbstractIntegerSetting(), IGlobal {
     override var setting: Int? = 500
 
     override val min: Int

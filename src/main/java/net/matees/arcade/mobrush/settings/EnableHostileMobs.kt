@@ -1,9 +1,9 @@
 package net.matees.arcade.mobrush.settings
 
-import net.matees.settings.BooleanSetting
+import net.matees.settings.AbstractBooleanSetting
 import org.bukkit.Material
 
-class EnableHostileMobs private constructor() : BooleanSetting() {
+class EnableHostileMobs private constructor() : AbstractBooleanSetting() {
     override var setting: Boolean? = true
 
     override val name: String

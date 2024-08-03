@@ -1,9 +1,9 @@
 package net.matees.arcade.mobrush.settings
 
-import net.matees.settings.BooleanSetting
+import net.matees.settings.AbstractBooleanSetting
 import org.bukkit.Material
 
-class RandomMobCount private constructor() : BooleanSetting() {
+class RandomMobCount private constructor() : AbstractBooleanSetting() {
     private var randomMobCount: Boolean = true
 
     override val name: String

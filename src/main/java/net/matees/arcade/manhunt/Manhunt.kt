@@ -34,7 +34,7 @@ class Manhunt private constructor() : Minigame() {
     override val commandUsage: String?
         get() = null
 
-    override val settings: List<Setting<*>>
+    override val settings: List<AbstractSetting<*>>
         get() = listOf()
 
     override val settingsMenu: Class<out Menu?>

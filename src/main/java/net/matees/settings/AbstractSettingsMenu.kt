@@ -7,7 +7,7 @@ import me.kodysimpson.simpapi.menu.PlayerMenuUtility
 import net.matees.arcade.Minigame
 import org.bukkit.event.inventory.InventoryClickEvent
 
-abstract class SettingsMenu(playerMenuUtility: PlayerMenuUtility?) : Menu(playerMenuUtility) {
+abstract class AbstractSettingsMenu(playerMenuUtility: PlayerMenuUtility?) : Menu(playerMenuUtility) {
     abstract val minigame: Minigame
 
     @Throws(MenuManagerNotSetupException::class, MenuManagerException::class)
