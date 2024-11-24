@@ -3,6 +3,7 @@ package net.matees.arcade
 import me.kodysimpson.simpapi.command.SubCommand
 import me.kodysimpson.simpapi.menu.Menu
 import net.matees.settings.AbstractSetting
+import org.bukkit.Bukkit
 import org.bukkit.event.Listener
 import org.bukkit.inventory.ItemStack
 
@@ -49,6 +50,7 @@ abstract class Minigame {
     fun stopMinigame() {
         this.isCurrentMinigame = false
         this.onStopMinigame()
+        Bukkit.getServer().broadcastMessage("Minigame ended boozo's")
     }
 
     abstract fun onStopMinigame()

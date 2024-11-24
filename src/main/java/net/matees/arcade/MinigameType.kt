@@ -5,5 +5,6 @@ enum class MinigameType {
     MobRush,  // Random mobs spawn from breaking blocks
     Manhunt,  // Minecraft manhunt
     LavaRise,  // Lava rises every x seconds/minutes
-    DeathSwap // Death Swap
+    DeathSwap, // Death Swap
+    BlockShuffle // Block Shuffle
 }
