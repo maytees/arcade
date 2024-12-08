@@ -7,7 +7,7 @@ server, bringing a fresh twist to Minecraft for you and your friends._
 
 ## Description
 
-**Version:** Alpha - 0.0.2
+**Version:** Alpha - 0.0.3
 
 ### What Does It Do?
 
@@ -28,10 +28,12 @@ you prefer.
 
 - Mob Rush - Breaking blocks spawn random mobs.
 - Item Rush - Breaking blocks drops random items.
+- Lava Rise - Every minute, lava rises.
+- Death swap - Every minute, players randomly swap places with each other.
 
 ### Critical Information
 
-_THIS PLUGIN IS IN ALPHA AND IS IN NO WAY STABLE_
+_THIS PLUGIN IS IN ALPHA AND IS UNSTABLE_
 
 Please report bugs on the Github issue tracker:
 https://github.com/maytees/arcade/issues
@@ -39,6 +41,7 @@ https://github.com/maytees/arcade/issues
 ## Usage
 
 `/arcade open` - Opens mini game menu.
+`/arcade settings` - Opens global settings menu.
 
 ## Support and Documentation
 

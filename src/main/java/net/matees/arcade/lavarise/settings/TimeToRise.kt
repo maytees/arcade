@@ -1,34 +1,22 @@
 package net.matees.arcade.lavarise.settings
 
-import net.matees.settings.IntegerSetting
+import net.matees.settings.AbstractIntegerSetting
 import org.bukkit.Material
 
-class TimeToRise private constructor() : IntegerSetting() {
-    private var setting = 5 // Seconds
+class TimeToRise private constructor() : AbstractIntegerSetting() {
+    override var setting: Int? = 5 // Seconds
 
-    override fun getName(): String {
-        return "Time To Rise"
-    }
+    override val name: String
+        get() = "Time To Rise"
 
-    override fun getDescription(): String {
-        return "Set how often lava rises"
-    }
+    override val description: String
+        get() = "Set how often lava rises. Can't change during minigame."
 
-    override fun getSetting(): Int {
-        return this.setting
-    }
+    override val menuItemMaterial: Material
+        get() = Material.REPEATER
 
-    override fun setSetting(setting: Int) {
-        this.setting = setting
-    }
-
-    override fun getMenuItemMaterial(): Material {
-        return Material.RABBIT_FOOT
-    }
-
-    override fun getMenuItemSlot(): Int {
-        return 15
-    }
+    override val menuItemSlot: Int
+        get() = 15
 
     companion object {
         val instance: TimeToRise = TimeToRise()
