@@ -1,5 +1,7 @@
 # Arcade
 
+***Current development branch: 0.0.3-alpha***
+
 _Survival mini game plugin that adds captivating mini games to your minecraft
 server, bringing a fresh twist to Minecraft for you and your friends._
 
